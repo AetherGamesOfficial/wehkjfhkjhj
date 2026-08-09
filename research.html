@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>AETHER</title>
-    <link rel="icon" type="image/png" href="aether-favicon.png">
 
     <style>
         html,
@@ -426,40 +425,6 @@
             font-family: inherit;
         }
 
-        .proxy-url-form {
-            position: fixed;
-            left: 50%;
-            bottom: 18px;
-            z-index: 45;
-            width: min(860px, calc(100vw - 42px));
-            transform: translateX(-50%);
-            display: none;
-        }
-
-        .proxy-url-form.active {
-            display: block;
-        }
-
-        #proxy-url {
-            width: 100%;
-            min-height: 48px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 4px solid white;
-            border-radius: 24px;
-            padding: 10px 18px;
-            box-sizing: border-box;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            font-family: inherit;
-        }
-
-        #proxy-url::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
         .web-viewport {
             position: absolute;
             inset: 0;
@@ -562,6 +527,38 @@
             background: rgba(0, 0, 0, 0.35) !important;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
+            z-index: 90;
+        }
+
+        .nav-toggle {
+            position: absolute;
+            top: 122px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 91;
+            width: 56px;
+            height: 28px;
+            border: 4px solid #ffffff;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        body.nav-hidden .appleseed {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -120%);
+        }
+
+        body.nav-hidden .nav-toggle {
+            top: 16px;
+            border-top: 4px solid #ffffff;
+            border-radius: 12px;
         }
 
         .Medeviscool,
@@ -617,6 +614,8 @@
         </button>
     </nav>
 
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Hide navigation">^</button>
+
     <div class="main-workspace">
 
         <div class="search-container" id="landing-ui">
@@ -636,16 +635,6 @@
             <div id="uv-error"></div>
 
         </div>
-
-        <form class="proxy-url-form" id="proxy-url-form" onsubmit="return false">
-            <input
-                id="proxy-url"
-                type="text"
-                placeholder="Search the web or type a URL..."
-                autocomplete="off"
-                spellcheck="false"
-            />
-        </form>
 
         <div
             id="viewports-container"
@@ -700,19 +689,27 @@
         </div>
 
     </div>
+
+ 
+
 <script type="module">
 function initAetherResearch() {
 
     const toolTargetKey = "aether-tool-target";
-    const arcticBases = [
-        "https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main",
-        "https://testingcf.jsdelivr.net/gh/sealiee11/arctic-static@main",
-        "https://gcore.jsdelivr.net/gh/sealiee11/arctic-static@main",
-        "https://cdn.statically.io/gh/sealiee11/arctic-static/main",
-        "https://fastly.jsdelivr.net/gh/sealiee11/arctic-static@main",
-        "https://originfastly.jsdelivr.net/gh/sealiee11/arctic-static@main",
-        "https://quantil.jsdelivr.net/gh/sealiee11/arctic-static@main"
+    const staticCdnBase = "https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/";
+    const arcticEmbedBase = staticCdnBase + "static-scramjet.svg";
+    const arcticWisps = [
+        "wss://wisp.mercurywork.shop/",
+        "wss://arctic.lat/wisp/",
+        "wss://math.luminalos.com/cdn-cgi/p/",
+        "wss://math.sealiee.click/cdn-cgi/p/",
+        "wss://math.mathematicaloffice.com/cdn-cgi/p/",
+        "wss://math.luminal.click/cdn-cgi/p/"
     ];
+
+    function getStaticAssetUrl(file) {
+        return staticCdnBase + file;
+    }
 
     function encodeArcticTarget(value) {
         const bytes = new TextEncoder().encode(value);
@@ -722,34 +719,41 @@ function initAetherResearch() {
     }
 
     function getArcticUrl(target, baseIndex = 0) {
-        const base = arcticBases[baseIndex % arcticBases.length].replace(/\/+$/, "");
-        return base + "/embed.svg?backend=scramjet2&palette=gnmath#" + encodeArcticTarget(target);
+        const routeCount = arcticWisps.length;
+        const routeIndex = baseIndex % routeCount;
+        const params = new URLSearchParams({ backend: "scramjet2", palette: "gnmath" });
+        const wisp = arcticWisps[routeIndex];
+        if (wisp) params.set("wisp", wisp);
+        return arcticEmbedBase + "?" + params.toString() + "#" + encodeArcticTarget(target);
     }
 
     const form = document.getElementById("uv-form");
     const address = document.getElementById("uv-address");
     const landingUi = document.getElementById("landing-ui");
     const errorEl = document.getElementById("uv-error");
-    const activeUrlForm = document.getElementById("proxy-url-form");
-    const activeUrl = document.getElementById("proxy-url");
-    const mainWorkspace = document.querySelector(".main-workspace");
 
     const tabBar = document.getElementById("tab-bar");
     const newTabBtn = document.getElementById("new-tab-btn");
     const viewportsContainer = document.getElementById("viewports-container");
     const homeNav = document.getElementById("home-nav");
+    const navToggle = document.getElementById("nav-toggle");
     let tabs = [];
     let activeTabId = null;
-    let legacyWorkersChecked = false;
-    let scramjetReadyPromise = null;
-    let scramjetController = null;
-    let sandstoneModulePromise = null;
     let loadToken = 0;
-    const isStaticSvgPage = window.location.protocol === "data:" || window.location.origin === "null";
 
-    /* =========================
-        FORMAT URL
-    ========================= */
+    function syncNavToggle() {
+        const hidden = document.body.classList.contains("nav-hidden");
+        navToggle.textContent = hidden ? "v" : "^";
+        navToggle.setAttribute("aria-label", hidden ? "Show navigation" : "Hide navigation");
+    }
+
+    navToggle.addEventListener("click", () => {
+        document.body.classList.toggle("nav-hidden");
+        syncNavToggle();
+    });
+
+    syncNavToggle();
+
     function formatUrl(input) {
         let url = input.trim();
         if (!url) return "";
@@ -760,8 +764,7 @@ function initAetherResearch() {
             return "https://" + url;
         }
 
-        return "https://duckduckgo.com/?q=" +
-            encodeURIComponent(url);
+        return "https://www.bing.com/search?q=" + encodeURIComponent(url);
     }
 
     function assertValidUrl(url) {
@@ -775,9 +778,6 @@ function initAetherResearch() {
         }
     }
 
-    /* =========================
-        TAB HELPERS
-    ========================= */
     function getActiveTab() {
         return tabs.find(t => t.id === activeTabId);
     }
@@ -789,8 +789,6 @@ function initAetherResearch() {
         landingUi.style.display = hasPage ? "none" : "flex";
         homeNav.style.display = "flex";
         address.value = hasPage ? (tab.rawInput || tab.currentUrl) : "";
-        activeUrlForm.classList.toggle("active", hasPage);
-        activeUrl.value = hasPage ? (tab.rawInput || tab.currentUrl) : "";
 
         for (const t of tabs) {
             const isActive = t.id === activeTabId;
@@ -817,9 +815,6 @@ function initAetherResearch() {
         }
     }
 
-    /* =========================
-        CREATE TAB
-    ========================= */
     function createTab() {
         const id = Date.now().toString();
 
@@ -843,8 +838,6 @@ function initAetherResearch() {
             id,
             tabEl,
             iframeEl,
-            frame: null,
-            sandstoneFrame: null,
             hasLoadedUrl: false,
             currentUrl: "",
             rawInput: ""
@@ -864,9 +857,6 @@ function initAetherResearch() {
         setActive(id);
     }
 
-    /* =========================
-        CLOSE TAB
-    ========================= */
     function closeTab(id) {
         const index = tabs.findIndex(t => t.id === id);
         if (index === -1) return;
@@ -886,205 +876,36 @@ function initAetherResearch() {
     newTabBtn.addEventListener("click", createTab);
     createTab();
 
-    /* =========================
-        AETHER RESEARCH SETUP
-    ========================= */
-    async function wait(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    async function withTimeout(promise, ms, message) {
-        let timeoutId;
-        const timeout = new Promise((_, reject) => {
-            timeoutId = setTimeout(() => reject(new Error(message)), ms);
-        });
-
-        return Promise.race([promise, timeout]).finally(() => clearTimeout(timeoutId));
-    }
-
-    async function removeLegacyServiceWorkers() {
-        if (legacyWorkersChecked) return;
-        legacyWorkersChecked = true;
-        if (!navigator.serviceWorker?.getRegistrations) return;
-
-        const cleanupKey = "aether-research-sw-cleaned-v1";
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        let removedLegacyWorker = false;
-
-        for (const registration of registrations) {
-            const worker =
-                registration.active ||
-                registration.waiting ||
-                registration.installing;
-            const scriptUrl = worker?.scriptURL || "";
-
-            if (
-                scriptUrl &&
-                (
-                    scriptUrl.includes("/uv") ||
-                    scriptUrl.includes("/dynamic/") ||
-                    scriptUrl.includes("/baremux/") ||
-                    scriptUrl.includes("/register-sw.js")
-                )
-            ) {
-                removedLegacyWorker = await registration.unregister() || removedLegacyWorker;
-            }
-        }
-
-        let didClean = false;
-        try { didClean = sessionStorage.getItem(cleanupKey) === "true"; } catch { didClean = false; }
-        if (removedLegacyWorker && !didClean) {
-            try { sessionStorage.setItem(cleanupKey, "true"); } catch {}
-            await Promise.all([
-                caches.delete("__dynamic$files"),
-                caches.delete("__dynamic$blob"),
-                caches.delete("__dynamic"),
-                caches.delete("uv"),
-                caches.delete("uv-cache")
-            ]);
-            window.location.reload();
-            throw new Error("Reloading research engine.");
-        }
-    }
-
-    async function loadBootstrapInit() {
-        if (typeof window.initBootstrap === "function") return;
-
-        await withTimeout(new Promise((resolve, reject) => {
-            const script = document.createElement("script");
-            script.src = "/bootstrap-init.js";
-            script.onload = resolve;
-            script.onerror = () => reject(new Error("Research engine script failed to load."));
-            document.head.appendChild(script);
-        }), 7000, "Research engine script took too long to load.");
-    }
-
-    async function loadBootstrapController() {
-        if (typeof window.initBootstrap === "function") {
-            return window.initBootstrap();
-        }
-
-        const response = await withTimeout(
-            fetch("/bootstrap-init.js", { cache: "no-store" }),
-            7000,
-            "Research engine script took too long to fetch."
-        );
-        if (!response.ok) {
-            throw new Error("Research engine script failed to fetch.");
-        }
-
-        const source = await response.text();
-        const importUrl = source.match(/import\("([^"]+)"\)/)?.[1];
-        const configText = source.match(/return init\(([\s\S]*?)\);\s*\}/)?.[1];
-        if (!importUrl || !configText) {
-            throw new Error("Research engine script could not be parsed.");
-        }
-
-        const { init } = await import(importUrl);
-        return init(JSON.parse(configText));
-    }
-
-    async function loadSandstoneModule() {
-        if (!sandstoneModulePromise) {
-            sandstoneModulePromise = import("https://cdn.jsdelivr.net/npm/sandstone-proxy@0.2.0/dist/sandstone.mjs").then((module) => {
-                module.libcurl.set_websocket("wss://wisp.mercurywork.shop/");
-                return module;
-            });
-        }
-        return sandstoneModulePromise;
-    }
-
-    async function prepareSandstoneFrame(tab) {
-        const sandstone = await withTimeout(
-            loadSandstoneModule(),
-            20000,
-            "Sandstone took too long to load."
-        );
-
-        if (!tab.sandstoneFrame) {
-            const proxyFrame = new sandstone.controller.ProxyFrame();
-            proxyFrame.iframe.className = "web-viewport";
-            proxyFrame.iframe.style.display = "none";
-            proxyFrame.iframe.setAttribute("allow", "autoplay; fullscreen; gamepad; microphone; camera; clipboard-read; clipboard-write");
-            viewportsContainer.replaceChild(proxyFrame.iframe, tab.iframeEl);
-            tab.iframeEl = proxyFrame.iframe;
-            tab.sandstoneFrame = proxyFrame;
-        }
-
-        return tab.sandstoneFrame;
-    }
-
-    async function prepareScramjet() {
-        if (scramjetReadyPromise) return scramjetReadyPromise;
-
-        scramjetReadyPromise = prepareScramjetOnce().catch((err) => {
-            scramjetReadyPromise = null;
-            throw err;
-        });
-
-        return scramjetReadyPromise;
-    }
-
-    async function prepareScramjetOnce() {
-        if (isStaticSvgPage) {
-            throw new Error("Static CDN pages cannot start the research worker. Open the server-hosted Aether page for proxy search.");
-        }
-
-        await withTimeout(
-            removeLegacyServiceWorkers(),
-            2500,
-            "Old research workers took too long to clear."
-        );
-
-        if (!navigator.serviceWorker?.register || !window.SharedWorker) {
-            throw new Error("Research service workers are not supported in this browser.");
-        }
-
-        await loadBootstrapInit();
-
-        const controller = await withTimeout(
-            loadBootstrapController(),
-            15000,
-            "Research engine took too long to start."
-        );
-        await withTimeout(
-            controller.wait(),
-            15000,
-            "Research engine did not become ready."
-        );
-
-        scramjetController = controller;
-        return controller;
-    }
-
     function setLoadingError(token, message) {
         if (token !== loadToken) return;
         errorEl.textContent = message;
     }
 
     async function loadAddress(rawValue) {
-
         const tab = getActiveTab();
         if (!tab) return;
 
-        const sourceValue = rawValue ?? (document.activeElement === activeUrl ? activeUrl.value : address.value);
-        const input = String(sourceValue || "").trim();
+        const input = String(rawValue ?? address.value ?? "").trim();
         if (!input) return;
 
         const url = formatUrl(input);
         const token = ++loadToken;
-        let loadTimer = null;
         let baseIndex = 0;
+        let softTimer = null;
+        let hardTimer = null;
+
+        function clearTimers() {
+            clearTimeout(softTimer);
+            clearTimeout(hardTimer);
+        }
 
         function loadArcticFrame() {
-            tab.iframeEl.dataset.loadToken = String(token);
-            tab.iframeEl.dataset.baseIndex = String(baseIndex);
             tab.iframeEl.src = getArcticUrl(url, baseIndex);
         }
 
-        function tryNextArcticBase(message) {
+        function tryNextRoute(message) {
             if (token !== loadToken) return false;
-            if (baseIndex >= arcticBases.length - 1) return false;
+            if (baseIndex >= arcticWisps.length - 1) return false;
             baseIndex += 1;
             errorEl.textContent = message || "Trying another route...";
             loadArcticFrame();
@@ -1094,15 +915,24 @@ function initAetherResearch() {
         function onArcticMessage(event) {
             const data = event.data;
             if (!data || data.type !== "arctic-embed") return;
+
             if (data.status === "ready") {
-                clearTimeout(loadTimer);
+                clearTimers();
                 if (token === loadToken) errorEl.textContent = "";
                 window.removeEventListener("message", onArcticMessage);
                 return;
             }
+
+            if (data.status === "progress") {
+                if (token === loadToken && errorEl.textContent === "Loading...") {
+                    errorEl.textContent = "Loading...";
+                }
+                return;
+            }
+
             if (data.status === "error") {
-                if (!tryNextArcticBase("Trying another route...")) {
-                    clearTimeout(loadTimer);
+                if (!tryNextRoute("Trying another route...")) {
+                    clearTimers();
                     setLoadingError(token, "Could not load that page.");
                     window.removeEventListener("message", onArcticMessage);
                 }
@@ -1112,51 +942,45 @@ function initAetherResearch() {
         try {
             assertValidUrl(url);
 
+            clearTimers();
             errorEl.textContent = "Loading...";
             window.addEventListener("message", onArcticMessage);
 
-            tab.iframeEl.onload = () => {
-                if (token !== loadToken) return;
-                clearTimeout(loadTimer);
-                if (errorEl.textContent === "Loading...") {
-                    errorEl.textContent = "";
-                }
-            };
-
+            tab.iframeEl.onload = () => {};
             tab.iframeEl.onerror = () => {
-                if (token !== loadToken) return;
-                if (baseIndex < arcticBases.length - 1) {
-                    baseIndex += 1;
-                    errorEl.textContent = "Loading...";
-                    loadArcticFrame();
-                    return;
+                if (!tryNextRoute("Trying another route...")) {
+                    clearTimers();
+                    setLoadingError(token, "Site blocked or failed to load.");
+                    window.removeEventListener("message", onArcticMessage);
                 }
-                clearTimeout(loadTimer);
-                setLoadingError(token, "Site blocked or failed to load.");
             };
 
-            loadTimer = setTimeout(() => {
+            softTimer = setTimeout(() => {
                 setLoadingError(token, "Still loading. This site may be blocking the proxy or taking too long.");
-            }, 15000);
+            }, 20000);
+
+            hardTimer = setTimeout(() => {
+                if (!tryNextRoute("Trying another route...")) {
+                    setLoadingError(token, "Could not load that page.");
+                    window.removeEventListener("message", onArcticMessage);
+                }
+            }, 60000);
 
             loadArcticFrame();
             tab.hasLoadedUrl = true;
             tab.currentUrl = url;
             tab.rawInput = input;
-            activeUrl.value = input;
 
             const domain = url
                 .replace(/^https?:\/\/(www\.)?/, "")
                 .split("/")[0];
 
-            tab.tabEl.querySelector(".tab-title").textContent =
-                domain.substring(0, 16);
-
+            tab.tabEl.querySelector(".tab-title").textContent = domain.substring(0, 16);
             render();
 
         } catch (err) {
+            clearTimers();
             window.removeEventListener("message", onArcticMessage);
-            clearTimeout(loadTimer);
             tab.hasLoadedUrl = false;
             render();
             errorEl.textContent = "Error: " + err.message;
@@ -1168,23 +992,32 @@ function initAetherResearch() {
         await loadAddress(address.value);
     });
 
-    activeUrlForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        await loadAddress(activeUrl.value);
-    });
-
     address.addEventListener("keydown", async (e) => {
         if (e.key !== "Enter") return;
         e.preventDefault();
         await loadAddress();
     });
 
-    const params = new URL(window.location.href).searchParams;
+    function getLaunchParams() {
+        const params = new URL(window.location.href).searchParams;
+        try {
+            const forwarded = decodeURIComponent(window.location.hash.slice(1) || "");
+            if (forwarded.startsWith("?")) {
+                const forwardedParams = new URLSearchParams(forwarded.slice(1));
+                for (const [key, value] of forwardedParams) {
+                    if (!params.has(key)) params.set(key, value);
+                }
+            }
+        } catch {}
+        return params;
+    }
+
+    const params = getLaunchParams();
     let storedGoto = "";
     try { storedGoto = sessionStorage.getItem(toolTargetKey) || ""; } catch { storedGoto = ""; }
     const goto = params.get("goto") || storedGoto;
     if (goto) {
-        try { try { sessionStorage.removeItem(toolTargetKey); } catch {} } catch {}
+        try { sessionStorage.removeItem(toolTargetKey); } catch {}
         address.value = goto;
         window.history.replaceState(null, "", window.location.pathname);
         loadAddress(goto);
@@ -1200,30 +1033,18 @@ if (document.readyState === "loading") {
 </script>
 <script>
 (() => {
-    function createAetherStore() {
-    const memory = new Map();
-    try {
-        const key = "__aether_storage_test__";
-        window.localStorage.setItem(key, "1");
-        window.localStorage.removeItem(key);
-        return window.localStorage;
-    } catch {
-        return {
-            getItem: (key) => memory.has(key) ? memory.get(key) : null,
-            setItem: (key, value) => { memory.set(key, String(value)); },
-            removeItem: (key) => { memory.delete(key); }
-        };
-    }
-}
-const store = createAetherStore();
     const bgMap = {
         default: '#121212 url("aether background.png") center / cover fixed no-repeat',
         night: 'linear-gradient(135deg, #050505, #122033 58%, #12051f) fixed',
         ocean: 'linear-gradient(135deg, #001219, #005f73, #0a9396) fixed',
         none: '#121212'
     };
-    const custom = (store.getItem('aether.settings.customBg') || '').trim();
-    const mode = store.getItem('aether.settings.bg') || 'default';
+    let custom = "";
+    let mode = "default";
+    try {
+        custom = (window.localStorage.getItem('aether.settings.customBg') || '').trim();
+        mode = window.localStorage.getItem('aether.settings.bg') || 'default';
+    } catch {}
     const bg = custom ? `#121212 url("${custom.replace(/"/g, '%22')}") center / cover fixed no-repeat` : (bgMap[mode] || bgMap.default);
     document.documentElement.style.background = bg;
     document.body.style.background = bg;
