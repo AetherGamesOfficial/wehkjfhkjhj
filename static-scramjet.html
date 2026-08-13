@@ -48,7 +48,16 @@
   <script type="module">
     import { r as prepare, R as Runtime, d as decodeTarget } from "https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js";
 
-    const params = new URLSearchParams(location.search);
+    function hostLocationPart(part) {
+      try {
+        if (window.parent && window.parent !== window && window.parent.location) {
+          return window.parent.location[part] || "";
+        }
+      } catch {}
+      return window.location[part] || "";
+    }
+
+    const params = new URLSearchParams(hostLocationPart("search"));
     const preferredWisp = normalizeWisp(window.__AETHER_STATIC_WISP || params.get("wisp") || "wss://wisp.mercurywork.shop/");
     const backend = window.__AETHER_STATIC_BACKEND || params.get("backend") || "scramjet2";
     const relayListUrl = "https://cdn.jsdelivr.net/gh/skidding-code/arctic-wisps@main/wisp.txt";
@@ -78,7 +87,7 @@
     function targetOf() {
       const injected = window.__ARCTIC_EMBED_TARGET;
       if (typeof injected === "string" && injected) return injected;
-      const hash = window.__AETHER_STATIC_TARGET_HASH || location.hash.slice(1);
+      const hash = window.__AETHER_STATIC_TARGET_HASH || hostLocationPart("hash").slice(1);
       if (hash) return decodeTarget(hash) || hash;
       return params.get("url") || "";
     }

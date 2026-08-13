@@ -51,7 +51,16 @@
   &lt;script type=&quot;module&quot;&gt;
     import { r as prepare, R as Runtime, d as decodeTarget } from &quot;https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js&quot;;
 
-    const params = new URLSearchParams(location.search);
+    function hostLocationPart(part) {
+      try {
+        if (window.parent &amp;&amp; window.parent !== window &amp;&amp; window.parent.location) {
+          return window.parent.location[part] || &quot;&quot;;
+        }
+      } catch {}
+      return window.location[part] || &quot;&quot;;
+    }
+
+    const params = new URLSearchParams(hostLocationPart(&quot;search&quot;));
     const preferredWisp = normalizeWisp(window.__AETHER_STATIC_WISP || params.get(&quot;wisp&quot;) || &quot;wss://wisp.mercurywork.shop/&quot;);
     const backend = window.__AETHER_STATIC_BACKEND || params.get(&quot;backend&quot;) || &quot;scramjet2&quot;;
     const relayListUrl = &quot;https://cdn.jsdelivr.net/gh/skidding-code/arctic-wisps@main/wisp.txt&quot;;
@@ -81,7 +90,7 @@
     function targetOf() {
       const injected = window.__ARCTIC_EMBED_TARGET;
       if (typeof injected === &quot;string&quot; &amp;&amp; injected) return injected;
-      const hash = window.__AETHER_STATIC_TARGET_HASH || location.hash.slice(1);
+      const hash = window.__AETHER_STATIC_TARGET_HASH || hostLocationPart(&quot;hash&quot;).slice(1);
       if (hash) return decodeTarget(hash) || hash;
       return params.get(&quot;url&quot;) || &quot;&quot;;
     }
