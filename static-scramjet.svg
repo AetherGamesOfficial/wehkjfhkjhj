@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0;width:100%;height:100%;display:block;margin:0;padding:0;background:#0d1324;">
   <foreignObject x="0" y="0" width="100%" height="100%">
-    <html xmlns="http://www.w3.org/1999/xhtml">
-      <head>
-        <base href="https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/" />
-        <style><![CDATA[
-
+    <iframe xmlns="http://www.w3.org/1999/xhtml" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+  &lt;meta http-equiv=&quot;Cache-Control&quot; content=&quot;no-store&quot;&gt;
+  &lt;base href=&quot;https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/&quot;&gt;
+  &lt;title&gt;Loading...&lt;/title&gt;
+  &lt;style&gt;
     html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #0d1324; color: #eef5ff; font-family: system-ui, sans-serif; }
     #stage { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; }
     #status { opacity: .78; margin-top: 12px; font-size: 14px; letter-spacing: .03em; }
@@ -14,103 +18,94 @@
     #error { display: none; max-width: 520px; padding: 28px; }
     #retry { margin-top: 18px; border: 0; border-radius: 10px; background: #ff265c; color: white; padding: 12px 24px; font-weight: 700; cursor: pointer; }
     @keyframes spin { to { transform: rotate(360deg); } }
-  
-        ]]></style>
-      </head>
-      <body style="margin:0;width:100%;height:100%;overflow:hidden;background:#0d1324;">
-
-  <div id="stage">
-    <div>
-      <div id="mark"></div>
-      <div id="status">connecting...</div>
-      <div id="error">
-        <h2>Couldn't load that page</h2>
-        <p id="errorText">The connection did not finish.</p>
-        <button id="retry" type="button">Try again</button>
-      </div>
-    </div>
-  </div>
-  <iframe id="frame" allow="autoplay; fullscreen; clipboard-read; clipboard-write; encrypted-media; picture-in-picture; gamepad"></iframe>
-
-      </body>
-    </html>
-  </foreignObject>
-  <script><![CDATA[
-
-    (() => {
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;stage&quot;&gt;
+    &lt;div&gt;
+      &lt;div id=&quot;mark&quot;&gt;&lt;/div&gt;
+      &lt;div id=&quot;status&quot;&gt;connecting...&lt;/div&gt;
+      &lt;div id=&quot;error&quot;&gt;
+        &lt;h2&gt;Couldn't load that page&lt;/h2&gt;
+        &lt;p id=&quot;errorText&quot;&gt;The connection did not finish.&lt;/p&gt;
+        &lt;button id=&quot;retry&quot; type=&quot;button&quot;&gt;Try again&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;iframe id=&quot;frame&quot; allow=&quot;autoplay; fullscreen; clipboard-read; clipboard-write; encrypted-media; picture-in-picture; gamepad&quot;&gt;&lt;/iframe&gt;
+  &lt;script&gt;
+    (() =&gt; {
       const memory = new Map();
       const safeStore = {
-        getItem: key => memory.has(String(key)) ? memory.get(String(key)) : null,
-        setItem: (key, value) => memory.set(String(key), String(value)),
-        removeItem: key => memory.delete(String(key)),
-        clear: () => memory.clear()
+        getItem: key =&gt; memory.has(String(key)) ? memory.get(String(key)) : null,
+        setItem: (key, value) =&gt; memory.set(String(key), String(value)),
+        removeItem: key =&gt; memory.delete(String(key)),
+        clear: () =&gt; memory.clear()
       };
-      for (const name of ["localStorage", "sessionStorage"]) {
+      for (const name of [&quot;localStorage&quot;, &quot;sessionStorage&quot;]) {
         try { void window[name]; }
         catch { try { Object.defineProperty(window, name, { value: safeStore, configurable: true }); } catch {} }
       }
     })();
-
-  ]]></script>
-  <script type="module"><![CDATA[
-
-    import { r as prepare, R as Runtime, d as decodeTarget } from "https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js";
+  &lt;/script&gt;
+  &lt;script type=&quot;module&quot;&gt;
+    import { r as prepare, R as Runtime, d as decodeTarget } from &quot;https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js&quot;;
 
     const params = new URLSearchParams(location.search);
-    const preferredWisp = normalizeWisp(window.__AETHER_STATIC_WISP || params.get("wisp") || "wss://wisp.mercurywork.shop/");
-    const backend = window.__AETHER_STATIC_BACKEND || params.get("backend") || "scramjet2";
-    const relayListUrl = "https://cdn.jsdelivr.net/gh/skidding-code/arctic-wisps@main/wisp.txt";
+    const preferredWisp = normalizeWisp(window.__AETHER_STATIC_WISP || params.get(&quot;wisp&quot;) || &quot;wss://wisp.mercurywork.shop/&quot;);
+    const backend = window.__AETHER_STATIC_BACKEND || params.get(&quot;backend&quot;) || &quot;scramjet2&quot;;
+    const relayListUrl = &quot;https://cdn.jsdelivr.net/gh/skidding-code/arctic-wisps@main/wisp.txt&quot;;
     const bundledWisps = [
-      "wss://wisp.mercurywork.shop/",
-      "wss://arctic.lat/wisp/",
-      "wss://math.luminalos.com/cdn-cgi/p/",
-      "wss://math.sealiee.click/cdn-cgi/p/",
-      "wss://math.mathematicaloffice.com/cdn-cgi/p/",
-      "wss://math.luminal.click/cdn-cgi/p/"
+      &quot;wss://wisp.mercurywork.shop/&quot;,
+      &quot;wss://arctic.lat/wisp/&quot;,
+      &quot;wss://math.luminalos.com/cdn-cgi/p/&quot;,
+      &quot;wss://math.sealiee.click/cdn-cgi/p/&quot;,
+      &quot;wss://math.mathematicaloffice.com/cdn-cgi/p/&quot;,
+      &quot;wss://math.luminal.click/cdn-cgi/p/&quot;
     ].map(normalizeWisp).filter(Boolean);
-    const frame = document.getElementById("frame");
-    const stage = document.getElementById("stage");
-    const statusEl = document.getElementById("status");
-    const errorBox = document.getElementById("error");
-    const errorText = document.getElementById("errorText");
-    const retry = document.getElementById("retry");
+    const frame = document.getElementById(&quot;frame&quot;);
+    const stage = document.getElementById(&quot;stage&quot;);
+    const statusEl = document.getElementById(&quot;status&quot;);
+    const errorBox = document.getElementById(&quot;error&quot;);
+    const errorText = document.getElementById(&quot;errorText&quot;);
+    const retry = document.getElementById(&quot;retry&quot;);
     let runId = 0;
     let runtime = null;
     let relayPromise = null;
     const rejectedRelays = new Set;
 
     function post(status, detail) {
-      if (window.parent !== window) window.parent.postMessage({ type: "arctic-embed", status, detail }, "*");
+      if (window.parent !== window) window.parent.postMessage({ type: &quot;arctic-embed&quot;, status, detail }, &quot;*&quot;);
     }
 
     function targetOf() {
       const injected = window.__ARCTIC_EMBED_TARGET;
-      if (typeof injected === "string" && injected) return injected;
+      if (typeof injected === &quot;string&quot; &amp;&amp; injected) return injected;
       const hash = window.__AETHER_STATIC_TARGET_HASH || location.hash.slice(1);
       if (hash) return decodeTarget(hash) || hash;
-      return params.get("url") || "";
+      return params.get(&quot;url&quot;) || &quot;&quot;;
     }
 
     function setStatus(text) {
       statusEl.textContent = text;
-      post("progress", text);
+      post(&quot;progress&quot;, text);
     }
 
     function normalizeWisp(value) {
-      if (typeof value !== "string") return null;
+      if (typeof value !== &quot;string&quot;) return null;
       const text = value.trim();
       if (!/^wss?:\/\//i.test(text)) return null;
-      const clean = text.replace(/[?#].*$/, "");
-      return clean.endsWith("/") ? clean : clean + "/";
+      const clean = text.replace(/[?#].*$/, &quot;&quot;);
+      return clean.endsWith(&quot;/&quot;) ? clean : clean + &quot;/&quot;;
     }
 
     function decodeAw1List(text) {
-      const parts = text.trim().split(".");
-      if (parts.length !== 3 || parts[0] !== "aw1") return text;
-      const payload = parts[2].replace(/-/g, "+").replace(/_/g, "/");
-      const raw = Uint8Array.from(atob(payload + "=".repeat((4 - payload.length % 4) % 4)), char => char.charCodeAt(0));
+      const parts = text.trim().split(&quot;.&quot;);
+      if (parts.length !== 3 || parts[0] !== &quot;aw1&quot;) return text;
+      const payload = parts[2].replace(/-/g, &quot;+&quot;).replace(/_/g, &quot;/&quot;);
+      const raw = Uint8Array.from(atob(payload + &quot;=&quot;.repeat((4 - payload.length % 4) % 4)), char =&gt; char.charCodeAt(0));
       const key = new TextEncoder().encode(`arctic-list-mask:${parts[1]}:1`);
-      const decoded = Uint8Array.from(raw, (byte, index) => byte ^ key[index % key.length]);
+      const decoded = Uint8Array.from(raw, (byte, index) =&gt; byte ^ key[index % key.length]);
       return new TextDecoder().decode(decoded);
     }
 
@@ -119,7 +114,7 @@
       const relays = [];
       for (const line of decodeAw1List(text).split(/\n+/)) {
         const relay = normalizeWisp(line);
-        if (relay && !seen.has(relay)) {
+        if (relay &amp;&amp; !seen.has(relay)) {
           seen.add(relay);
           relays.push(relay);
         }
@@ -130,28 +125,28 @@
     async function loadRelays() {
       if (!relayPromise) {
         const baseRelays = [preferredWisp, ...bundledWisps].filter(Boolean);
-        relayPromise = fetch(relayListUrl, { cache: "no-store" })
-          .then(response => response.ok ? response.text() : "")
-          .then(text => parseRelayList(text))
-          .catch(() => [])
-          .then(relays => [...new Set([...baseRelays, ...relays])]);
+        relayPromise = fetch(relayListUrl, { cache: &quot;no-store&quot; })
+          .then(response =&gt; response.ok ? response.text() : &quot;&quot;)
+          .then(text =&gt; parseRelayList(text))
+          .catch(() =&gt; [])
+          .then(relays =&gt; [...new Set([...baseRelays, ...relays])]);
       }
       return relayPromise;
     }
 
     async function nextRelay() {
       const relays = await loadRelays();
-      return relays.find(value => !rejectedRelays.has(value)) || relays[0] || preferredWisp || bundledWisps[0] || "wss://wisp.mercurywork.shop/";
+      return relays.find(value =&gt; !rejectedRelays.has(value)) || relays[0] || preferredWisp || bundledWisps[0] || &quot;wss://wisp.mercurywork.shop/&quot;;
     }
 
     async function getRuntime() {
       if (runtime) return runtime;
-      await prepare().catch(() => {});
+      await prepare().catch(() =&gt; {});
       runtime = new Runtime(nextRelay, {
-        onWispFailure: url => {
-          if (url && rejectedRelays.size < Math.max(0, bundledWisps.length - 1)) rejectedRelays.add(normalizeWisp(url) || url);
+        onWispFailure: url =&gt; {
+          if (url &amp;&amp; rejectedRelays.size &lt; Math.max(0, bundledWisps.length - 1)) rejectedRelays.add(normalizeWisp(url) || url);
         },
-        onWispSuccess: url => { if (url) rejectedRelays.delete(normalizeWisp(url) || url); }
+        onWispSuccess: url =&gt; { if (url) rejectedRelays.delete(normalizeWisp(url) || url); }
       });
       return runtime;
     }
@@ -160,13 +155,13 @@
       const target = targetOf();
       const token = ++runId;
       if (!target) {
-        showError("No address was provided.");
+        showError(&quot;No address was provided.&quot;);
         return;
       }
-      errorBox.style.display = "none";
-      frame.style.display = "none";
-      stage.style.display = "grid";
-      setStatus("connecting...");
+      errorBox.style.display = &quot;none&quot;;
+      frame.style.display = &quot;none&quot;;
+      stage.style.display = &quot;grid&quot;;
+      setStatus(&quot;connecting...&quot;);
       try {
         const engine = await getRuntime();
         await engine.navigate({
@@ -175,33 +170,33 @@
           backend,
           token: String(token),
           signal: undefined,
-          isStale: () => token !== runId,
-          onLocationChange: (url) => post("navigate", url),
-          onStatus: (info) => {
-            if (info.phase === "resolving-wisp") setStatus("checking relay...");
-            if (info.phase === "connecting") setStatus("starting Scramjet...");
-            if (info.phase === "retrying") setStatus("retrying...");
-            if (info.phase === "loading") setStatus("loading...");
+          isStale: () =&gt; token !== runId,
+          onLocationChange: (url) =&gt; post(&quot;navigate&quot;, url),
+          onStatus: (info) =&gt; {
+            if (info.phase === &quot;resolving-wisp&quot;) setStatus(&quot;checking relay...&quot;);
+            if (info.phase === &quot;connecting&quot;) setStatus(&quot;starting Scramjet...&quot;);
+            if (info.phase === &quot;retrying&quot;) setStatus(&quot;retrying...&quot;);
+            if (info.phase === &quot;loading&quot;) setStatus(&quot;loading...&quot;);
           }
         });
         if (token !== runId) return;
-        stage.style.display = "none";
-        frame.style.display = "block";
-        post("ready", target);
+        stage.style.display = &quot;none&quot;;
+        frame.style.display = &quot;block&quot;;
+        post(&quot;ready&quot;, target);
       } catch (error) {
-        if (token === runId) showError(error && error.message ? error.message : "The connection did not finish.");
+        if (token === runId) showError(error &amp;&amp; error.message ? error.message : &quot;The connection did not finish.&quot;);
       }
     }
 
     function showError(message) {
-      frame.style.display = "none";
-      stage.style.display = "grid";
+      frame.style.display = &quot;none&quot;;
+      stage.style.display = &quot;grid&quot;;
       errorText.textContent = message;
-      errorBox.style.display = "block";
-      post("error", message);
+      errorBox.style.display = &quot;block&quot;;
+      post(&quot;error&quot;, message);
     }
 
-    retry.addEventListener("click", () => {
+    retry.addEventListener(&quot;click&quot;, () =&gt; {
       if (runtime) runtime.destroy();
       rejectedRelays.clear();
       relayPromise = null;
@@ -210,6 +205,8 @@
     });
 
     load();
-
-  ]]></script>
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;" allow="autoplay; fullscreen; clipboard-read; clipboard-write; encrypted-media; picture-in-picture; gamepad" style="position:fixed;inset:0;width:100%;height:100%;border:0;margin:0;padding:0;display:block;background:#0d1324;"></iframe>
+  </foreignObject>
 </svg>
