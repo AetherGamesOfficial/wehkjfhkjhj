@@ -706,7 +706,7 @@ function initAetherResearch() {
 
     const toolTargetKey = &quot;aether-tool-target&quot;;
     const staticCdnBase = &quot;https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/&quot;;
-    const arcticEmbedBase = &quot;https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@e9a9b37/static-scramjet.svg&quot;;
+    const arcticEmbedBase = &quot;https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@b0df9dc/static-scramjet.svg&quot;;
     const arcticWisps = [
         &quot;wss://wisp.mercurywork.shop/&quot;,
         &quot;wss://arctic.lat/wisp/&quot;,
