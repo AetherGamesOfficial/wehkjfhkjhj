@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activities</title>
-    <link rel="icon" type="image/png" href="aether-favicon.png">
     <script src="https://cdn.jsdelivr.net/gh/luminsdk/script@latest/lumin.min.js"></script>
 
     <style>
@@ -550,67 +549,6 @@
             background: rgba(255, 255, 255, 0.12) !important;
         }
 
-        .game-player {
-            position: fixed;
-            inset: 0;
-            z-index: 200;
-            display: none;
-            flex-direction: column;
-            background: rgba(0, 0, 0, 0.74);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-        }
-
-        .game-player.active {
-            display: flex;
-        }
-
-        .game-player-bar {
-            min-height: 72px;
-            padding: 12px 18px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 5px solid #fff;
-        }
-
-        .game-player-title {
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            color: #fff;
-            font-family: inherit;
-            font-size: 1.05rem;
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-        }
-
-        .game-player-close {
-            min-width: 120px;
-            padding: 14px 22px;
-            border: 5px solid #fff;
-            border-radius: 20px;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            font-family: inherit;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        .game-player-frame {
-            flex: 1;
-            width: 100%;
-            min-height: 0;
-            border: 0;
-            background: #000;
-        }
-
     </style>
 </head>
 <body>
@@ -672,15 +610,6 @@
 
         <div class="status" id="status">Loading games...</div>
         <section class="games-grid" id="games"></section>
-
-    <section class="game-player" id="game-player" aria-hidden="true">
-        <div class="game-player-bar">
-            <span class="game-player-title" id="game-player-title">Game</span>
-            <button class="game-player-close" id="game-player-close" type="button">Close</button>
-        </div>
-        <iframe class="game-player-frame" id="game-player-frame" title="Aether game player" allow="autoplay; fullscreen; pointer-lock; gamepad" allowfullscreen></iframe>
-    </section>
-
     </main>
 
     <script>
@@ -689,48 +618,6 @@
         const searchInput = document.getElementById("game-search");
         const categoryFilter = document.getElementById("category-filter");
         const randomButton = document.getElementById("random-games");
-        const gamePlayer = document.getElementById("game-player");
-        const gamePlayerFrame = document.getElementById("game-player-frame");
-        const gamePlayerTitle = document.getElementById("game-player-title");
-        const gamePlayerClose = document.getElementById("game-player-close");
-        let activeGameObjectUrl = "";
-
-        function openGamePlayer(title, url, objectUrl = "") {
-            if (!url) {
-                setStatus("Could not open game.");
-                return;
-            }
-
-            if (activeGameObjectUrl) {
-                URL.revokeObjectURL(activeGameObjectUrl);
-                activeGameObjectUrl = "";
-            }
-
-            activeGameObjectUrl = objectUrl;
-            gamePlayerTitle.textContent = title || "Game";
-            gamePlayerFrame.src = url;
-            gamePlayer.classList.add("active");
-            gamePlayer.setAttribute("aria-hidden", "false");
-        }
-
-        function closeGamePlayer() {
-            gamePlayer.classList.remove("active");
-            gamePlayer.setAttribute("aria-hidden", "true");
-            gamePlayerFrame.src = "about:blank";
-
-            if (activeGameObjectUrl) {
-                URL.revokeObjectURL(activeGameObjectUrl);
-                activeGameObjectUrl = "";
-            }
-        }
-
-        gamePlayerClose.addEventListener("click", closeGamePlayer);
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && gamePlayer.classList.contains("active")) {
-                closeGamePlayer();
-            }
-        });
-
 
         let allGames = [];
         let imageUrls = {};
@@ -740,30 +627,12 @@
         let luminTotalGames = 0;
         const luminPageLimit = 200;
         const luminDirectoryCacheKey = "aether:lumin-directory:v2";
-        const isStaticSvgPage = window.location.protocol === "data:" || window.location.origin === "null";
-const gnMathZonesUrls = [
-            "https://raw.githubusercontent.com/gn-math/assets/main/zones.json",
-            "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json"
+        const gnMathZonesUrls = [
+            "https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json",
+            "https://raw.githubusercontent.com/gn-math/assets/main/zones.json"
         ];
-        const gnMathCoverUrl = "https://raw.githubusercontent.com/gn-math/covers/main";
-        const gnMathHtmlUrl = "https://raw.githubusercontent.com/gn-math/html/main";
-
-        const manualGames = [
-            {
-                id: "roblox-nowgg",
-                name: "Roblox",
-                category: "Creative",
-                url: "https://nowgg.fun/apps/a/19900/b.html"
-            },
-            {
-                id: "minecraft-26-2",
-                name: "minecraft 26.2",
-                category: "Creative",
-                html_url: "https://raw.githubusercontent.com/EaglercraftNOA/Mojang-hello/main/Novix_26.1.2.html",
-                base_url: "https://raw.githubusercontent.com/EaglercraftNOA/Mojang-hello/main/"
-            },
-        ];
-
+        const gnMathCoverUrl = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
+        const gnMathHtmlUrl = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
         const fallbackGames = [
             { id: "play-2048", name: "2048", category: "Puzzle", url: "https://play2048.co/" },
@@ -858,13 +727,7 @@ const gnMathZonesUrls = [
         async function loadGnMathGames() {
             const zones = await fetchJsonFromAny(gnMathZonesUrls);
             return zones
-                .filter((zone) => {
-                    if (zone?.id === undefined || !zone?.name || !zone?.url) return false;
-                    const url = String(zone.url)
-                        .replaceAll("{HTML_URL}", gnMathHtmlUrl)
-                        .toLowerCase();
-                    return url.endsWith(".html");
-                })
+                .filter((zone) => zone?.id !== undefined && zone?.name && zone?.url)
                 .map(normalizeGnMathZone);
         }
 
@@ -1060,7 +923,7 @@ const gnMathZonesUrls = [
                     return;
                 }
 
-                if ((game.url || game.html_url) && !game.image_token) {
+                if (game.url && !game.image_token) {
                     imageUrls[game.id] = getFallbackImage(game);
                     return;
                 }
@@ -1110,16 +973,19 @@ const gnMathZonesUrls = [
             });
         }
 
+        function openInResearch(url) {
+            if (!url) return;
+            window.location.href = `research.html?goto=${encodeURIComponent(url)}`;
+        }
 
         async function playGame(game) {
             if (game.html_url) {
-                await openHtmlGame(game);
+                openHtmlGame(game);
                 return;
             }
 
             if (game.url) {
-                openGamePlayer(game.name, game.url);
-                setStatus("");
+                openInResearch(game.url);
                 return;
             }
 
@@ -1127,9 +993,8 @@ const gnMathZonesUrls = [
                 setStatus(`Opening ${game.name}...`);
                 const result = await Lumin.getGameUrl(game.id);
                 const url = result?.url || result;
-                if (!url) throw new Error("No playable URL returned.");
-                openGamePlayer(game.name, url);
-                setStatus("");
+                if (!url) throw new Error("Lumin did not return a game URL.");
+                openInResearch(url);
             } catch (err) {
                 console.error("Game launch failed:", err);
                 setStatus("Could not open game.");
@@ -1143,9 +1008,7 @@ const gnMathZonesUrls = [
                 const response = await fetch(game.html_url);
                 if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
                 let html = await response.text();
-                const htmlBaseUrl = game.base_url || `${gnMathHtmlUrl}/`;
-
-                const baseTag = `<base href="${htmlBaseUrl}">`;
+                const baseTag = `<base href="${gnMathHtmlUrl}/">`;
                 if (/<head[^>]*>/i.test(html)) {
                     html = html.replace(/<head([^>]*)>/i, `<head$1>${baseTag}`);
                 } else {
@@ -1153,13 +1016,10 @@ const gnMathZonesUrls = [
                 }
 
                 const blob = new Blob([html], { type: "text/html" });
-                const gameUrl = URL.createObjectURL(blob);
-                openGamePlayer(game.name, gameUrl, gameUrl);
-                setStatus("");
+                window.location.href = URL.createObjectURL(blob);
             } catch (err) {
-                console.error("HTML game launch failed:", err);
-                openGamePlayer(game.name, game.html_url);
-                setStatus("");
+                console.error("GN Math game launch failed:", err);
+                window.location.href = `research.html?goto=${encodeURIComponent(game.html_url)}`;
             }
         }
 
@@ -1211,28 +1071,9 @@ const gnMathZonesUrls = [
         }
 
         async function initActivities() {
-            if (isStaticSvgPage) {
-                try {
-                    setStatus("Loading GN Math games...");
-                    const gnGames = await loadGnMathGames();
-                    allGames = manualGames.concat(gnGames.length ? gnGames : fallbackGames);
-                    await loadImages(allGames.slice(0, 36));
-                    updateCategories(categoriesFromGames(allGames));
-                    refreshGames();
-                } catch (err) {
-                    console.error("Static game catalog failed:", err);
-                    allGames = manualGames.concat(fallbackGames);
-                    await loadImages(allGames.slice(0, 36));
-                    updateCategories(categoriesFromGames(allGames));
-                    refreshGames();
-                }
-                return;
-            }
-
             const cachedDirectory = getCachedLuminDirectory();
             if (cachedDirectory) {
                 allGames = cachedDirectory.games;
-                mergeCatalogGames(manualGames);
                 luminTotalGames = cachedDirectory.total || cachedDirectory.games.length;
                 updateCategories(categoriesFromGames(allGames));
                 refreshGames();
@@ -1244,7 +1085,6 @@ const gnMathZonesUrls = [
                 await withTimeout(Lumin.init({ headless: true }), 30000, "Lumin took too long to start.");
                 const firstPage = await withTimeout(getGamesPage(1), 30000, "Lumin games took too long to load.");
                 allGames = firstPage.games;
-                mergeCatalogGames(manualGames);
                 if (!allGames.length) throw new Error("Lumin returned no games.");
                 usingFallbackGames = false;
                 luminTotalPages = firstPage.pages;
@@ -1295,8 +1135,7 @@ const gnMathZonesUrls = [
                 grid.innerHTML = "";
                 try {
                     setStatus("Loading GN Math games...");
-                    const gnGames = await loadGnMathGames();
-                    allGames = manualGames.concat(gnGames.length ? gnGames : fallbackGames);
+                    allGames = await loadGnMathGames();
                     await loadImages(allGames.slice(0, 24));
                     updateCategories(categoriesFromGames(allGames));
                     refreshGames();
@@ -1330,22 +1169,7 @@ const gnMathZonesUrls = [
     </script>
 <script>
 (() => {
-    function createAetherStore() {
-    const memory = new Map();
-    try {
-        const key = "__aether_storage_test__";
-        window.localStorage.setItem(key, "1");
-        window.localStorage.removeItem(key);
-        return window.localStorage;
-    } catch {
-        return {
-            getItem: (key) => memory.has(key) ? memory.get(key) : null,
-            setItem: (key, value) => { memory.set(key, String(value)); },
-            removeItem: (key) => { memory.delete(key); }
-        };
-    }
-}
-const store = createAetherStore();
+    const store = window.localStorage;
     const bgMap = {
         default: '#121212 url("aether background.png") center / cover fixed no-repeat',
         night: 'linear-gradient(135deg, #050505, #122033 58%, #12051f) fixed',
