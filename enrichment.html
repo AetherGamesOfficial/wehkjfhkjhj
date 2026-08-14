@@ -623,6 +623,7 @@
         let imageUrls = {};
         let usingFallbackGames = false;
         let imageObserver = null;
+        let luminReady = false;
         let luminTotalPages = 1;
         let luminTotalGames = 0;
         const luminPageLimit = 200;
@@ -978,7 +979,16 @@
             window.location.href = `research.html?goto=${encodeURIComponent(url)}`;
         }
 
+        async function ensureLuminReady() {
+            if (!window.Lumin) await loadLuminSdk();
+            if (!luminReady) {
+                await Lumin.init({ headless: true });
+                luminReady = true;
+            }
+        }
+
         async function playGame(game) {
+            if (!game) return;
             if (game.html_url) {
                 openHtmlGame(game);
                 return;
@@ -991,6 +1001,7 @@
 
             try {
                 setStatus(`Opening ${game.name}...`);
+                await ensureLuminReady();
                 const result = await Lumin.getGameUrl(game.id);
                 const url = result?.url || result;
                 if (!url) throw new Error("Lumin did not return a game URL.");
@@ -1040,7 +1051,12 @@
                 const card = document.createElement("button");
                 card.className = "game-card";
                 card.type = "button";
-                card.onclick = () => playGame(game);
+                card.dataset.gameId = game.id;
+                card.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    playGame(game);
+                });
 
                 const image = document.createElement("img");
                 image.alt = game.name;
@@ -1083,6 +1099,7 @@
                 setStatus(cachedDirectory ? `${allGames.length} games` : "Loading Lumin games...");
                 await withTimeout(loadLuminSdk(), 15000, "Lumin SDK took too long to load.");
                 await withTimeout(Lumin.init({ headless: true }), 30000, "Lumin took too long to start.");
+                luminReady = true;
                 const firstPage = await withTimeout(getGamesPage(1), 30000, "Lumin games took too long to load.");
                 allGames = firstPage.games;
                 if (!allGames.length) throw new Error("Lumin returned no games.");
