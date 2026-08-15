@@ -684,6 +684,41 @@
             statusEl.textContent = message;
         }
 
+        function showGameLoader() {
+            let loader = document.getElementById("game-loader");
+            if (loader) {
+                loader.style.opacity = "1";
+                return loader;
+            }
+
+            loader = document.createElement("iframe");
+            loader.id = "game-loader";
+            loader.title = "Loading";
+            loader.src = "loading.html";
+            loader.setAttribute("aria-hidden", "true");
+            loader.style.cssText = [
+                "position:fixed",
+                "inset:0",
+                "width:100vw",
+                "height:100vh",
+                "border:0",
+                "z-index:2147483647",
+                "background:#000",
+                "opacity:1",
+                "transition:opacity 520ms ease",
+                "pointer-events:auto",
+            ].join(";");
+            document.body.prepend(loader);
+            return loader;
+        }
+
+        function hideGameLoader() {
+            const loader = document.getElementById("game-loader");
+            if (!loader) return;
+            loader.style.opacity = "0";
+            window.setTimeout(() => loader.remove(), 560);
+        }
+
         function normalizeGames(result) {
             if (Array.isArray(result)) return result;
             return result?.games || [];
@@ -976,6 +1011,7 @@
 
         function openInResearch(url) {
             if (!url) return;
+            showGameLoader();
             window.location.href = `research.html?goto=${encodeURIComponent(url)}`;
         }
 
@@ -1007,6 +1043,7 @@
                 if (!url) throw new Error("Lumin did not return a game URL.");
                 openInResearch(url);
             } catch (err) {
+                hideGameLoader();
                 console.error("Game launch failed:", err);
                 setStatus("Could not open game.");
             }
@@ -1030,7 +1067,7 @@
                 window.location.href = URL.createObjectURL(blob);
             } catch (err) {
                 console.error("GN Math game launch failed:", err);
-                window.location.href = `research.html?goto=${encodeURIComponent(game.html_url)}`;
+                openInResearch(game.html_url);
             }
         }
 
@@ -1087,6 +1124,7 @@
         }
 
         async function initActivities() {
+            showGameLoader();
             const cachedDirectory = getCachedLuminDirectory();
             if (cachedDirectory) {
                 allGames = cachedDirectory.games;
@@ -1116,6 +1154,7 @@
                 updateCategories(categories);
                 await loadImages(allGames.slice(0, 24));
                 refreshGames();
+                hideGameLoader();
                 loadGnMathGames().then(async (gnGames) => {
                     if (!mergeCatalogGames(gnGames)) return;
                     updateCategories(categoriesFromGames(allGames));
@@ -1143,6 +1182,7 @@
                         console.error("GN Math catalog failed:", gnErr);
                     }
                     setStatus(`${allGames.length} games`);
+                    hideGameLoader();
                     return;
                 }
                 usingFallbackGames = false;
@@ -1156,9 +1196,11 @@
                     await loadImages(allGames.slice(0, 24));
                     updateCategories(categoriesFromGames(allGames));
                     refreshGames();
+                    hideGameLoader();
                 } catch (gnErr) {
                     console.error("GN Math catalog failed:", gnErr);
                     setStatus("Game catalogs failed to load.");
+                    hideGameLoader();
                 }
             }
         }

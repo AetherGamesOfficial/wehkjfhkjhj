@@ -693,6 +693,41 @@
             statusEl.textContent = message;
         }
 
+        function showGameLoader() {
+            let loader = document.getElementById(&quot;game-loader&quot;);
+            if (loader) {
+                loader.style.opacity = &quot;1&quot;;
+                return loader;
+            }
+
+            loader = document.createElement(&quot;iframe&quot;);
+            loader.id = &quot;game-loader&quot;;
+            loader.title = &quot;Loading&quot;;
+            loader.src = &quot;loading.html&quot;;
+            loader.setAttribute(&quot;aria-hidden&quot;, &quot;true&quot;);
+            loader.style.cssText = [
+                &quot;position:fixed&quot;,
+                &quot;inset:0&quot;,
+                &quot;width:100vw&quot;,
+                &quot;height:100vh&quot;,
+                &quot;border:0&quot;,
+                &quot;z-index:2147483647&quot;,
+                &quot;background:#000&quot;,
+                &quot;opacity:1&quot;,
+                &quot;transition:opacity 520ms ease&quot;,
+                &quot;pointer-events:auto&quot;,
+            ].join(&quot;;&quot;);
+            document.body.prepend(loader);
+            return loader;
+        }
+
+        function hideGameLoader() {
+            const loader = document.getElementById(&quot;game-loader&quot;);
+            if (!loader) return;
+            loader.style.opacity = &quot;0&quot;;
+            window.setTimeout(() =&gt; loader.remove(), 560);
+        }
+
         function normalizeGames(result) {
             if (Array.isArray(result)) return result;
             return result?.games || [];
@@ -985,6 +1020,7 @@
 
         function openInResearch(url) {
             if (!url) return;
+            showGameLoader();
             window.parent.location.href = `https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/research.svg?goto=${encodeURIComponent(url)}`;
         }
 
@@ -1016,6 +1052,7 @@
                 if (!url) throw new Error(&quot;Lumin did not return a game URL.&quot;);
                 openInResearch(url);
             } catch (err) {
+                hideGameLoader();
                 console.error(&quot;Game launch failed:&quot;, err);
                 setStatus(&quot;Could not open game.&quot;);
             }
@@ -1039,7 +1076,7 @@
                 window.location.href = URL.createObjectURL(blob);
             } catch (err) {
                 console.error(&quot;GN Math game launch failed:&quot;, err);
-                window.parent.location.href = `https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/research.svg?goto=${encodeURIComponent(game.html_url)}`;
+                openInResearch(game.html_url);
             }
         }
 
@@ -1096,6 +1133,7 @@
         }
 
         async function initActivities() {
+            showGameLoader();
             const cachedDirectory = getCachedLuminDirectory();
             if (cachedDirectory) {
                 allGames = cachedDirectory.games;
@@ -1125,6 +1163,7 @@
                 updateCategories(categories);
                 await loadImages(allGames.slice(0, 24));
                 refreshGames();
+                hideGameLoader();
                 loadGnMathGames().then(async (gnGames) =&gt; {
                     if (!mergeCatalogGames(gnGames)) return;
                     updateCategories(categoriesFromGames(allGames));
@@ -1152,6 +1191,7 @@
                         console.error(&quot;GN Math catalog failed:&quot;, gnErr);
                     }
                     setStatus(`${allGames.length} games`);
+                    hideGameLoader();
                     return;
                 }
                 usingFallbackGames = false;
@@ -1165,9 +1205,11 @@
                     await loadImages(allGames.slice(0, 24));
                     updateCategories(categoriesFromGames(allGames));
                     refreshGames();
+                    hideGameLoader();
                 } catch (gnErr) {
                     console.error(&quot;GN Math catalog failed:&quot;, gnErr);
                     setStatus(&quot;Game catalogs failed to load.&quot;);
+                    hideGameLoader();
                 }
             }
         }
