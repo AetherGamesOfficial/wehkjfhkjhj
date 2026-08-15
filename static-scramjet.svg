@@ -32,8 +32,12 @@
         html = inject + html;
       }
 
-      frame.src = URL.createObjectURL(new Blob([html], { type: "text/html" }));
       root.appendChild(frame);
+      var doc = frame.contentWindow && frame.contentWindow.document;
+      if (!doc) throw new Error("Could not open helper frame.");
+      doc.open();
+      doc.write(html);
+      doc.close();
     })();
   ]]></script>
 </svg>
