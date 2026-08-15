@@ -1034,13 +1034,11 @@
 
         async function playGame(game) {
             if (!game) return;
-            if (game.html_url) {
-                openHtmlGame(game);
-                return;
-            }
 
-            if (game.url) {
-                openInResearch(game.url);
+            const directUrl = game.html_url || game.url;
+            if (directUrl) {
+                setStatus(`Opening ${game.name}...`);
+                openInResearch(directUrl);
                 return;
             }
 
@@ -1055,28 +1053,6 @@
                 hideGameLoader();
                 console.error(&quot;Game launch failed:&quot;, err);
                 setStatus(&quot;Could not open game.&quot;);
-            }
-        }
-
-        async function openHtmlGame(game) {
-            setStatus(`Opening ${game.name}...`);
-
-            try {
-                const response = await fetch(game.html_url);
-                if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
-                let html = await response.text();
-                const baseTag = `&lt;base href=&quot;${gnMathHtmlUrl}/&quot;&gt;`;
-                if (/&lt;head[^&gt;]*&gt;/i.test(html)) {
-                    html = html.replace(/&lt;head([^&gt;]*)&gt;/i, `&lt;head$1&gt;${baseTag}`);
-                } else {
-                    html = `${baseTag}${html}`;
-                }
-
-                const blob = new Blob([html], { type: &quot;text/html&quot; });
-                window.location.href = URL.createObjectURL(blob);
-            } catch (err) {
-                console.error(&quot;GN Math game launch failed:&quot;, err);
-                openInResearch(game.html_url);
             }
         }
 
