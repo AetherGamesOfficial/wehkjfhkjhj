@@ -1008,16 +1008,29 @@ function initAetherResearch() {
     });
 
     function getLaunchParams() {
-        const params = new URL(window.location.href).searchParams;
-        try {
-            const forwarded = decodeURIComponent(window.location.hash.slice(1) || &quot;&quot;);
-            if (forwarded.startsWith(&quot;?&quot;)) {
-                const forwardedParams = new URLSearchParams(forwarded.slice(1));
-                for (const [key, value] of forwardedParams) {
+        const params = new URLSearchParams();
+
+        const mergeParams = (source) =&gt; {
+            if (!source) return;
+            try {
+                const url = new URL(source, window.location.href);
+                for (const [key, value] of url.searchParams) {
                     if (!params.has(key)) params.set(key, value);
                 }
-            }
-        } catch {}
+
+                const forwarded = decodeURIComponent(url.hash.slice(1) || &quot;&quot;);
+                if (forwarded.startsWith(&quot;?&quot;)) {
+                    const forwardedParams = new URLSearchParams(forwarded.slice(1));
+                    for (const [key, value] of forwardedParams) {
+                        if (!params.has(key)) params.set(key, value);
+                    }
+                }
+            } catch {}
+        };
+
+        mergeParams(window.__AETHER_LAUNCH_HREF__);
+        mergeParams(window.location.href);
+        mergeParams(document.referrer);
         return params;
     }
 
@@ -1028,7 +1041,7 @@ function initAetherResearch() {
     if (goto) {
         try { sessionStorage.removeItem(toolTargetKey); } catch {}
         address.value = goto;
-        window.history.replaceState(null, &quot;&quot;, window.location.pathname);
+        try { window.history.replaceState(null, &quot;&quot;, window.location.pathname); } catch {}
         loadAddress(goto);
     }
 
