@@ -1,13 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- favicon-refresh-20260721 -->
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0;width:100%;height:100%;display:block;margin:0;padding:0;background:#121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/AetherEducationStatic@main/aether%20background.png') center / cover no-repeat;">
+<!-- direct-svg-srcdoc-20260809 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position:fixed;inset:0;width:100%;height:100%;display:block;margin:0;padding:0;background:#121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/aether%20background.png') center / cover no-repeat;">
   <title>loading</title>
   <style>
-    html, body, svg, foreignObject { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/AetherEducationStatic@main/aether%20background.png') center / cover no-repeat; }
+    html, body, svg, foreignObject { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/aether%20background.png') center / cover no-repeat; }
     foreignObject { display: block; }
-    iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; margin: 0; padding: 0; display: block; background: #121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/AetherEducationStatic@main/aether%20background.png') center / cover no-repeat; }
+    iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; margin: 0; padding: 0; display: block; background: #121212 url('https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/aether%20background.png') center / cover no-repeat; }
   </style>
   <foreignObject x="0" y="0" width="100%" height="100%">
-    <iframe xmlns="http://www.w3.org/1999/xhtml" src="data:text/html;base64,PCFET0NUWVBFIGh0bWw+DQo8aHRtbD4KPGhlYWQ+Cjx0aXRsZT5Mb2FkaW5nPC90aXRsZT4KPGxpbmsgcmVsPSJpY29uIiB0eXBlPSJpbWFnZS9wbmciIGhyZWY9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9BZXRoZXJHYW1lc09mZmljaWFsL0FldGhlckVkdWNhdGlvblN0YXRpY0BtYWluL2FldGhlci1mYXZpY29uLnBuZyI+CjxzdHlsZT4KYm9keSB7DQogICAgbWFyZ2luOiAwOw0KICAgIGJhY2tncm91bmQ6IGJsYWNrOw0KICAgIGhlaWdodDogMTAwdmg7DQoNCiAgICBkaXNwbGF5OiBmbGV4Ow0KICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47DQogICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7DQogICAgYWxpZ24taXRlbXM6IGNlbnRlcjsNCg0KICAgIG92ZXJmbG93OiBoaWRkZW47DQp9DQoNCi5idWJibGUtY29udGFpbmVyIHsNCiAgICBwb3NpdGlvbjogYWJzb2x1dGU7DQogICAgaW5zZXQ6IDA7DQogICAgei1pbmRleDogMDsNCiAgICBwb2ludGVyLWV2ZW50czogbm9uZTsNCn0NCg0KLmJ1YmJsZSB7DQogICAgcG9zaXRpb246IGFic29sdXRlOw0KICAgIGJvdHRvbTogLTUwcHg7DQogICAgbGVmdDogdmFyKC0tc3RhcnQteCk7DQogICAgd2lkdGg6IHZhcigtLXNpemUpOw0KICAgIGhlaWdodDogdmFyKC0tc2l6ZSk7DQogICAgYm9yZGVyLXJhZGl1czogNTAlOw0KICAgIG9wYWNpdHk6IHZhcigtLW1heC1vcGFjaXR5KTsNCiAgICBhbmltYXRpb246IGZsb2F0VXAgdmFyKC0tc3BlZWQpIGxpbmVhciBpbmZpbml0ZTsNCiAgICBhbmltYXRpb24tZGVsYXk6IHZhcigtLWRlbGF5KTsNCiAgICBiYWNrZ3JvdW5kOiB2YXIoLS1jb2xvcik7DQogICAgYm94LXNoYWRvdzogMCAwIDE1cHggdmFyKC0tY29sb3IpOw0KfQ0KDQpAa2V5ZnJhbWVzIGZsb2F0VXAgew0KICAgIDAlIHsNCiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDApIHRyYW5zbGF0ZVgoMCk7DQogICAgICAgIG9wYWNpdHk6IHZhcigtLW1heC1vcGFjaXR5KTsNCiAgICB9DQogICAgNTAlIHsNCiAgICAgICAgb3BhY2l0eTogY2FsYyh2YXIoLS1tYXgtb3BhY2l0eSkgKiAxLjUpOw0KICAgIH0NCiAgICAxMDAlIHsNCiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKC0xMTB2aCkgdHJhbnNsYXRlWCh2YXIoLS1kcmlmdC14KSk7DQogICAgICAgIG9wYWNpdHk6IDA7DQogICAgfQ0KfQ0KDQoubG9hZGVyIHsKICAgIHBvc2l0aW9uOiByZWxhdGl2ZTsKICAgIHdpZHRoOiAxMDBweDsKICAgIGhlaWdodDogMTAwcHg7CiAgICBtYXJnaW4tYm90dG9tOiA0MHB4Ow0KICAgIHotaW5kZXg6IDE7Cn0KCi5kb3QgewogICAgcG9zaXRpb246IGFic29sdXRlOw0KICAgIHdpZHRoOiAxMnB4Ow0KICAgIGhlaWdodDogMTJweDsNCg0KICAgIGJhY2tncm91bmQ6IHdoaXRlOw0KICAgIGJvcmRlci1yYWRpdXM6IDUwJTsNCg0KICAgIHRvcDogNTAlOw0KICAgIGxlZnQ6IDUwJTsNCg0KICAgIG1hcmdpbjogLTZweDsNCg0KICAgIGFuaW1hdGlvbjogb3JiaXQgMS4ycyBsaW5lYXIgaW5maW5pdGU7DQp9DQoNCi5kb3Q6bnRoLWNoaWxkKDEpIHsgYW5pbWF0aW9uLWRlbGF5OiAwczsgb3BhY2l0eTogMTsgfQ0KLmRvdDpudGgtY2hpbGQoMikgeyBhbmltYXRpb24tZGVsYXk6IC0wLjFzOyBvcGFjaXR5OiAuOTI7IH0NCi5kb3Q6bnRoLWNoaWxkKDMpIHsgYW5pbWF0aW9uLWRlbGF5OiAtMC4yczsgb3BhY2l0eTogLjg0OyB9DQouZG90Om50aC1jaGlsZCg0KSB7IGFuaW1hdGlvbi1kZWxheTogLTAuM3M7IG9wYWNpdHk6IC43NjsgfQ0KLmRvdDpudGgtY2hpbGQoNSkgeyBhbmltYXRpb24tZGVsYXk6IC0wLjRzOyBvcGFjaXR5OiAuNjg7IH0NCi5kb3Q6bnRoLWNoaWxkKDYpIHsgYW5pbWF0aW9uLWRlbGF5OiAtMC41czsgb3BhY2l0eTogLjYwOyB9DQouZG90Om50aC1jaGlsZCg3KSB7IGFuaW1hdGlvbi1kZWxheTogLTAuNnM7IG9wYWNpdHk6IC41MjsgfQ0KLmRvdDpudGgtY2hpbGQoOCkgeyBhbmltYXRpb24tZGVsYXk6IC0wLjdzOyBvcGFjaXR5OiAuNDQ7IH0NCi5kb3Q6bnRoLWNoaWxkKDkpIHsgYW5pbWF0aW9uLWRlbGF5OiAtMC44czsgb3BhY2l0eTogLjM2OyB9DQouZG90Om50aC1jaGlsZCgxMCl7IGFuaW1hdGlvbi1kZWxheTogLTAuOXM7IG9wYWNpdHk6IC4yODsgfQ0KLmRvdDpudGgtY2hpbGQoMTEpeyBhbmltYXRpb24tZGVsYXk6IC0xLjBzOyBvcGFjaXR5OiAuMjA7IH0NCi5kb3Q6bnRoLWNoaWxkKDEyKXsgYW5pbWF0aW9uLWRlbGF5OiAtMS4xczsgb3BhY2l0eTogLjEyOyB9DQoNCkBrZXlmcmFtZXMgb3JiaXQgew0KICAgIGZyb20gew0KICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKSB0cmFuc2xhdGVYKDQwcHgpOw0KICAgIH0NCiAgICB0byB7DQogICAgICAgIHRyYW5zZm9ybTogcm90YXRlKDM2MGRlZykgdHJhbnNsYXRlWCg0MHB4KTsNCiAgICB9DQp9DQoNCiNtZXNzYWdlIHsNCiAgICBjb2xvcjogd2hpdGU7DQogICAgZm9udC1zaXplOiAzMnB4Ow0KICAgIGZvbnQtZmFtaWx5OiAiQ291cmllciBOZXciLCBtb25vc3BhY2U7DQogICAgdGV4dC1hbGlnbjogY2VudGVyOw0KICAgIG1heC13aWR0aDogODAlOw0KICAgIHotaW5kZXg6IDE7DQp9DQo8L3N0eWxlPg0KPC9oZWFkPg0KPGJvZHk+DQoNCjxkaXYgY2xhc3M9ImJ1YmJsZS1jb250YWluZXIiPg0KICAgIDxkaXYgY2xhc3M9ImJ1YmJsZSIgc3R5bGU9Ii0tc3RhcnQteDogNSU7ICAtLWRyaWZ0LXg6IDQwcHg7ICAtLXNpemU6IDE0cHg7IC0tc3BlZWQ6IDlzOyAgLS1kZWxheTogMHM7ICAgLS1tYXgtb3BhY2l0eTogMC42OyAtLWNvbG9yOiAjMDBiNGQ4OyI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iYnViYmxlIiBzdHlsZT0iLS1zdGFydC14OiAxMiU7IC0tZHJpZnQteDogLTMwcHg7IC0tc2l6ZTogMjZweDsgLS1zcGVlZDogMTNzOyAtLWRlbGF5OiA0czsgICAtLW1heC1vcGFjaXR5OiAwLjU7IC0tY29sb3I6ICM3MjA5Yjc7Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJidWJibGUiIHN0eWxlPSItLXN0YXJ0LXg6IDIyJTsgLS1kcmlmdC14OiA1MHB4OyAgLS1zaXplOiAxNnB4OyAtLXNwZWVkOiA4czsgIC0tZGVsYXk6IDEuNXM7IC0tbWF4LW9wYWNpdHk6IDAuNzsgLS1jb2xvcjogIzAwZjVkNDsiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImJ1YmJsZSIgc3R5bGU9Ii0tc3RhcnQteDogMzUlOyAtLWRyaWZ0LXg6IC00NXB4OyAtLXNpemU6IDMycHg7IC0tc3BlZWQ6IDE2czsgLS1kZWxheTogN3M7ICAgLS1tYXgtb3BhY2l0eTogMC40OyAtLWNvbG9yOiAjMmVjNGI2OyI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iYnViYmxlIiBzdHlsZT0iLS1zdGFydC14OiA0OCU7IC0tZHJpZnQteDogMjVweDsgIC0tc2l6ZTogMThweDsgLS1zcGVlZDogMTBzOyAtLWRlbGF5OiAyczsgICAtLW1heC1vcGFjaXR5OiAwLjY7IC0tY29sb3I6ICM3MjA5Yjc7Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJidWJibGUiIHN0eWxlPSItLXN0YXJ0LXg6IDU1JTsgLS1kcmlmdC14OiAtMzVweDsgLS1zaXplOiAxMnB4OyAtLXNwZWVkOiA3czsgIC0tZGVsYXk6IDUuNXM7IC0tbWF4LW9wYWNpdHk6IDAuNTsgLS1jb2xvcjogIzAwYjRkODsiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImJ1YmJsZSIgc3R5bGU9Ii0tc3RhcnQteDogNjglOyAtLWRyaWZ0LXg6IDYwcHg7ICAtLXNpemU6IDI4cHg7IC0tc3BlZWQ6IDE0czsgLS1kZWxheTogMC44czsgLS1tYXgtb3BhY2l0eTogMC42OyAtLWNvbG9yOiAjMDBmNWQ0OyI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iYnViYmxlIiBzdHlsZT0iLS1zdGFydC14OiA3NiU7IC0tZHJpZnQteDogLTIwcHg7IC0tc2l6ZTogMTVweDsgLS1zcGVlZDogOXM7ICAtLWRlbGF5OiAzLjJzOyAtLW1heC1vcGFjaXR5OiAwLjc7IC0tY29sb3I6ICMyZWM0YjY7Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJidWJibGUiIHN0eWxlPSItLXN0YXJ0LXg6IDg1JTsgLS1kcmlmdC14OiA0NXB4OyAgLS1zaXplOiAyMnB4OyAtLXNwZWVkOiAxMXM7IC0tZGVsYXk6IDZzOyAgIC0tbWF4LW9wYWNpdHk6IDAuNTsgLS1jb2xvcjogIzcyMDliNzsiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImJ1YmJsZSIgc3R5bGU9Ii0tc3RhcnQteDogOTMlOyAtLWRyaWZ0LXg6IC00MHB4OyAtLXNpemU6IDEzcHg7IC0tc3BlZWQ6IDhzOyAgLS1kZWxheTogMS44czsgLS1tYXgtb3BhY2l0eTogMC42OyAtLWNvbG9yOiAjMDBiNGQ4OyI+PC9kaXY+DQo8L2Rpdj4NCg0KPGRpdiBjbGFzcz0ibG9hZGVyIj4KICAgIDxkaXYgY2xhc3M9ImRvdCI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iZG90Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJkb3QiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImRvdCI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iZG90Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJkb3QiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImRvdCI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iZG90Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJkb3QiPjwvZGl2Pg0KICAgIDxkaXYgY2xhc3M9ImRvdCI+PC9kaXY+DQogICAgPGRpdiBjbGFzcz0iZG90Ij48L2Rpdj4NCiAgICA8ZGl2IGNsYXNzPSJkb3QiPjwvZGl2Pg0KPC9kaXY+DQoNCjxwIGlkPSJtZXNzYWdlIj48L3A+DQoNCjxzY3JpcHQ+DQpjb25zdCBtZXNzYWdlcyA9IFsNCiAgICAiSG9ydHkgaXMgYSBnb29uZXIiLA0KICAgICJpIGxpa2UgY29mZmVlIiwNCiAgICAiRnVjayB5b3UgaXp6eSIsDQogICAgIk15IHNjaG9vbCBnb25uYSBmbGFtZSBvbiBtZSBmb3IgdHMiLA0KICAgICJBZXRoZXIgb24gdG9wIGFtIGkgcmlnaHQ/IiwNCiAgICAiI015VG9lWl9yYmlnIiwNCiAgICAiQnVubnkgdGVybWVkIG15IGFjYyBBR0FJTiIsDQogICAgIkknbSB3YXRjaGluZyB5b3V1dXV1IiwNCiAgICAiaXMgaXQganVzdCBtZSBidXQgZW5nbGlzaCB0ZWFjaGVycyBhbmQgbWF0aCB0ZWFjaGVycyBhcmUgSEVMTEEgeWFwcGVycyIsDQogICAgImhlYXIgbWUgb3V0IGJ1dCBnb2xkZW4gaXMgbHdrIHBlYWsiLA0KICAgICJ5b3UgZm91bmQgdGhpcyBtZXNzYWdlLCB3b29vb293IiwNCiAgICAiYXBwbGVzZWVkIiwNCiAgICAicm90b2dhIiwNCiAgICAicm9jb2xhIiwNCiAgICAiWS1ZIiwNCiAgICAiTXkgYXNzIGdvdCBzbGFwcGVkIGJ5IG15IGZyaWVuZCIsDQogICAgInNvY2NlciBpcyB0aGUgYmVzdCBzcG9ydCB1IHdpdGggbWU/IiwNCiAgICAiam9pbiBhbnRpbGlnaHRzcGVlZCBhbmQgbW9yZSBjbHViIGF0IGNoZXNzLmNvbSEiLA0KICAgICJyaWNlIGlzIHBlYWsiLA0KICAgICJNeSBzY2hvb2wgZGVhbiBpcyBhbHNvIGNhbGxlZCBtb3p6ZXJlbGxhIiwNCiAgICAiUkVOREVSIFRFUk1FRCBNWSBBQ0MgRk9SIFRIRSAxNVRIIEZVQ0tJTkcgVElNRSBCVVQgSSBTVElMTCBHT1QgQUVUSEVSIFRPIFdPUksgU08gRUFUIFRIQVQgWU9VIFBVU1NZISIsDQogICAgIkkgYW0gYWN0dWFsbHkgYSBzdHVwaWQgc2hpdCBoZWxwIiwNCiAgICAiOm11c2ljYWxfbm90ZTogSGVsbG8sIGl0J3MgbmljZSB0byBtZWV0IHlvdSAoaGVsbG8pIE9oLCBjYW4geW91IHRlbGwgbWUgd2hlcmUgSSBhbT8gSSBkb24ndCBiZWxvbmcgYW1vbmcgdGhlIGFuZ2VsczptdXNpY2FsX25vdGU6ICIsDQogICAgIkpPSU4gVEhFIERJU0NPUkQiLA0KICAgICIjQVBQTEVTRUVEQ0hBTiIsDQogICAgImFuZ2xlZHVzdDppIGxpa2UgdG8gc3Vjay0tIGh1c2s6IElUIEJFVFRFUiBOT1QgQkUgQ09DS1MhIGFuZ2xlZHVzdDpld3d3IHUgd2VpcmRvIGkgbGlrZSB0byBzdWNrIHBvcHNpY2xlcyEiLA0KICAgICJpZGsgd2h5IGkgaGF2ZSBlYXN5IG9uIG15IGhhemJpbiBob3RlbCBwbGF5bGlzdCA6c29iOiIsDQogICAgImkgcGxheSBtaW5lY3JhZnQiLA0KICAgICJmdWNrIHlvdSBkaW5nIGRvbmciLA0KICAgICJkaWsgOlAiLA0KICAgICJJIGFtIFdBU1RJTkcgbXkgdGltZSBybiIsDQogICAgIm15IGJpcnRoZGF5IGlzIG5vdCBzb29uIiwNCiAgICAiaG9ybnlkZXZlbG9wZXIxODEiLA0KICAgICIjbG9yZW56b2xlcHJhY2F1biIsDQogICAgIk1ZIEZVQ0tJTkcgSEVBREREIEhVUlRTU1MiLA0KICAgICJhZGFtLCBmaXJzdCBtYW4sIE5FWFQgVE8gRElFLWFsYXN0b3IiLA0KICAgICJ5b3UgbWVzcyB3aXRoIG15IGRhdWdodGVyLCBJJ20gR09JTkcgVE8gRlVDSyBZT1UhIS1sdWNpZmVyIiwNCiAgICAid2hlcmUgZW0gaG9lcyBhdD8iLA0KICAgICJJIGxpa2UgZm9vZCIsDQogICAgImludHJvdmVudHMuLi4gVU5JVEUiDQpdOw0KDQpkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgibWVzc2FnZSIpLnRleHRDb250ZW50ID0NCiAgICBtZXNzYWdlc1tNYXRoLmZsb29yKE1hdGgucmFuZG9tKCkgKiBtZXNzYWdlcy5sZW5ndGgpXTsNCjwvc2NyaXB0Pg0KDQo8L2JvZHk+DQo8L2h0bWw+DQo=" allow="autoplay; fullscreen; pointer-lock; gamepad"></iframe>
+    <iframe xmlns="http://www.w3.org/1999/xhtml" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+body {
+    margin: 0;
+    background: black;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.bubble-container {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    left: var(--start-x);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    opacity: var(--max-opacity);
+    animation: floatUp var(--speed) linear infinite;
+    animation-delay: var(--delay);
+    background: var(--color);
+    box-shadow: 0 0 15px var(--color);
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: var(--max-opacity);
+    }
+    50% {
+        opacity: calc(var(--max-opacity) * 1.5);
+    }
+    100% {
+        transform: translateY(-110vh) translateX(var(--drift-x));
+        opacity: 0;
+    }
+}
+
+.loader {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 40px;
+    z-index: 1;
+}
+
+.dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+
+    background: white;
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    margin: -6px;
+
+    animation: orbit 1.2s linear infinite;
+}
+
+.dot:nth-child(1) { animation-delay: 0s; opacity: 1; }
+.dot:nth-child(2) { animation-delay: -0.1s; opacity: .92; }
+.dot:nth-child(3) { animation-delay: -0.2s; opacity: .84; }
+.dot:nth-child(4) { animation-delay: -0.3s; opacity: .76; }
+.dot:nth-child(5) { animation-delay: -0.4s; opacity: .68; }
+.dot:nth-child(6) { animation-delay: -0.5s; opacity: .60; }
+.dot:nth-child(7) { animation-delay: -0.6s; opacity: .52; }
+.dot:nth-child(8) { animation-delay: -0.7s; opacity: .44; }
+.dot:nth-child(9) { animation-delay: -0.8s; opacity: .36; }
+.dot:nth-child(10){ animation-delay: -0.9s; opacity: .28; }
+.dot:nth-child(11){ animation-delay: -1.0s; opacity: .20; }
+.dot:nth-child(12){ animation-delay: -1.1s; opacity: .12; }
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(40px);
+    }
+    to {
+        transform: rotate(360deg) translateX(40px);
+    }
+}
+
+#message {
+    color: white;
+    font-size: 32px;
+    font-family: &quot;Courier New&quot;, monospace;
+    text-align: center;
+    max-width: 80%;
+    z-index: 1;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;bubble-container&quot;&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 5%;  --drift-x: 40px;  --size: 14px; --speed: 9s;  --delay: 0s;   --max-opacity: 0.6; --color: #00b4d8;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 12%; --drift-x: -30px; --size: 26px; --speed: 13s; --delay: 4s;   --max-opacity: 0.5; --color: #7209b7;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 22%; --drift-x: 50px;  --size: 16px; --speed: 8s;  --delay: 1.5s; --max-opacity: 0.7; --color: #00f5d4;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 35%; --drift-x: -45px; --size: 32px; --speed: 16s; --delay: 7s;   --max-opacity: 0.4; --color: #2ec4b6;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 48%; --drift-x: 25px;  --size: 18px; --speed: 10s; --delay: 2s;   --max-opacity: 0.6; --color: #7209b7;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 55%; --drift-x: -35px; --size: 12px; --speed: 7s;  --delay: 5.5s; --max-opacity: 0.5; --color: #00b4d8;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 68%; --drift-x: 60px;  --size: 28px; --speed: 14s; --delay: 0.8s; --max-opacity: 0.6; --color: #00f5d4;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 76%; --drift-x: -20px; --size: 15px; --speed: 9s;  --delay: 3.2s; --max-opacity: 0.7; --color: #2ec4b6;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 85%; --drift-x: 45px;  --size: 22px; --speed: 11s; --delay: 6s;   --max-opacity: 0.5; --color: #7209b7;&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;bubble&quot; style=&quot;--start-x: 93%; --drift-x: -40px; --size: 13px; --speed: 8s;  --delay: 1.8s; --max-opacity: 0.6; --color: #00b4d8;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;loader&quot;&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;dot&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p id=&quot;message&quot;&gt;&lt;/p&gt;
+
+&lt;script&gt;
+const messages = [
+    &quot;Horty is a gooner&quot;,
+    &quot;i like coffee&quot;,
+    &quot;Fuck you izzy&quot;,
+    &quot;My school gonna flame on me for ts&quot;,
+    &quot;Aether on top am i right?&quot;,
+    &quot;#MyToeZ_rbig&quot;,
+    &quot;Bunny termed my acc AGAIN&quot;,
+    &quot;I'm watching youuuuu&quot;,
+    &quot;is it just me but english teachers and math teachers are HELLA yappers&quot;,
+    &quot;hear me out but golden is lwk peak&quot;,
+    &quot;you found this message, wooooow&quot;,
+    &quot;appleseed&quot;,
+    &quot;rotoga&quot;,
+    &quot;rocola&quot;,
+    &quot;Y-Y&quot;,
+    &quot;My ass got slapped by my friend&quot;,
+    &quot;soccer is the best sport u with me?&quot;,
+    &quot;join antilightspeed and more club at chess.com!&quot;,
+    &quot;rice is peak&quot;,
+    &quot;My school dean is also called mozzerella&quot;,
+    &quot;RENDER TERMED MY ACC FOR THE 15TH FUCKING TIME BUT I STILL GOT AETHER TO WORK SO EAT THAT YOU PUSSY!&quot;,
+    &quot;I am actually a stupid shit help&quot;,
+    &quot;:musical_note: Hello, it's nice to meet you (hello) Oh, can you tell me where I am? I don't belong among the angels:musical_note: &quot;,
+    &quot;JOIN THE DISCORD&quot;,
+    &quot;#APPLESEEDCHAN&quot;,
+    &quot;angledust:i like to suck-- husk: IT BETTER NOT BE COCKS! angledust:ewww u weirdo i like to suck popsicles!&quot;,
+    &quot;idk why i have easy on my hazbin hotel playlist :sob:&quot;,
+    &quot;i play minecraft&quot;,
+    &quot;fuck you ding dong&quot;,
+    &quot;dik :P&quot;,
+    &quot;I am WASTING my time rn&quot;,
+    &quot;my birthday is not soon&quot;,
+    &quot;hornydeveloper181&quot;,
+    &quot;#lorenzolepracaun&quot;,
+    &quot;MY FUCKING HEADDD HURTSSS&quot;,
+    &quot;adam, first man, NEXT TO DIE-alastor&quot;,
+    &quot;you mess with my daughter, I'm GOING TO FUCK YOU!!-lucifer&quot;,
+    &quot;where em hoes at?&quot;,
+    &quot;I like food&quot;,
+    &quot;introvents... UNITE&quot;
+];
+
+const messageEl = document.getElementById(&quot;message&quot;);
+
+function showNextMessage() {
+    messageEl.textContent = messages[Math.floor(Math.random() * messages.length)];
+}
+
+showNextMessage();
+setInterval(showNextMessage, 2600);
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+" allow="autoplay; fullscreen; pointer-lock; gamepad" allowfullscreen="true"></iframe>
   </foreignObject>
 </svg>

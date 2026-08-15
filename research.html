@@ -700,11 +700,7 @@ function initAetherResearch() {
     const arcticEmbedBase = staticCdnBase + "static-scramjet.svg";
     const arcticWisps = [
         "wss://wisp.mercurywork.shop/",
-        "wss://arctic.lat/wisp/",
-        "wss://math.luminalos.com/cdn-cgi/p/",
-        "wss://math.sealiee.click/cdn-cgi/p/",
-        "wss://math.mathematicaloffice.com/cdn-cgi/p/",
-        "wss://math.luminal.click/cdn-cgi/p/"
+        "wss://arctic.lat/wisp/"
     ];
 
     function getStaticAssetUrl(file) {
@@ -881,6 +877,47 @@ function initAetherResearch() {
         errorEl.textContent = message;
     }
 
+    function getLoaderPageUrl() {
+        const launchHref = String(window.__AETHER_LAUNCH_HREF__ || window.location.href || "");
+        const isStatic = launchHref.includes("/gh/AetherGamesOfficial/Aetherhtmlstatic@") || launchHref.includes("research.svg");
+        return isStatic ? getStaticAssetUrl("loading.svg") : "loading.html";
+    }
+
+    function showPageLoader() {
+        let loader = document.getElementById("page-loader");
+        if (loader) {
+            loader.style.opacity = "1";
+            return loader;
+        }
+
+        loader = document.createElement("iframe");
+        loader.id = "page-loader";
+        loader.title = "Loading";
+        loader.src = getLoaderPageUrl();
+        loader.setAttribute("aria-hidden", "true");
+        loader.style.cssText = [
+            "position:fixed",
+            "inset:0",
+            "width:100vw",
+            "height:100vh",
+            "border:0",
+            "z-index:2147483646",
+            "background:#000",
+            "opacity:1",
+            "transition:opacity 520ms ease",
+            "pointer-events:auto"
+        ].join(";");
+        document.body.appendChild(loader);
+        return loader;
+    }
+
+    function hidePageLoader() {
+        const loader = document.getElementById("page-loader");
+        if (!loader) return;
+        loader.style.opacity = "0";
+        window.setTimeout(() => loader.remove(), 560);
+    }
+
     async function loadAddress(rawValue) {
         const tab = getActiveTab();
         if (!tab) return;
@@ -900,6 +937,7 @@ function initAetherResearch() {
         }
 
         function loadArcticFrame() {
+            showPageLoader();
             tab.iframeEl.src = getArcticUrl(url, baseIndex);
         }
 
@@ -918,6 +956,7 @@ function initAetherResearch() {
 
             if (data.status === "ready") {
                 clearTimers();
+                hidePageLoader();
                 if (token === loadToken) errorEl.textContent = "";
                 window.removeEventListener("message", onArcticMessage);
                 return;
@@ -933,6 +972,7 @@ function initAetherResearch() {
             if (data.status === "error") {
                 if (!tryNextRoute("Trying another route...")) {
                     clearTimers();
+                    hidePageLoader();
                     setLoadingError(token, "Could not load that page.");
                     window.removeEventListener("message", onArcticMessage);
                 }
@@ -950,6 +990,7 @@ function initAetherResearch() {
             tab.iframeEl.onerror = () => {
                 if (!tryNextRoute("Trying another route...")) {
                     clearTimers();
+                    hidePageLoader();
                     setLoadingError(token, "Site blocked or failed to load.");
                     window.removeEventListener("message", onArcticMessage);
                 }
@@ -961,6 +1002,7 @@ function initAetherResearch() {
 
             hardTimer = setTimeout(() => {
                 if (!tryNextRoute("Trying another route...")) {
+                    hidePageLoader();
                     setLoadingError(token, "Could not load that page.");
                     window.removeEventListener("message", onArcticMessage);
                 }
@@ -980,6 +1022,7 @@ function initAetherResearch() {
 
         } catch (err) {
             clearTimers();
+            hidePageLoader();
             window.removeEventListener("message", onArcticMessage);
             tab.hasLoadedUrl = false;
             render();

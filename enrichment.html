@@ -680,6 +680,31 @@
             { id: "freerice", name: "FreeRice", category: "Trivia", url: "https://freerice.com/" },
         ];
 
+        const staticCdnBase = "https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/";
+
+        function getStaticPageUrl(page) {
+            let parentHref = "";
+            try {
+                parentHref = window.parent && window.parent !== window ? window.parent.location.href : "";
+            } catch {}
+
+            const currentHref = [window.location.href, document.referrer, parentHref].join(" ");
+            const isStatic = currentHref.includes("/gh/AetherGamesOfficial/Aetherhtmlstatic@") || currentHref.includes(".svg");
+            return isStatic ? staticCdnBase + page.replace(/\.html$/, ".svg") : page;
+        }
+
+        function unwrapLaunchTarget(value) {
+            const text = String(value || "").trim();
+            try {
+                const parsed = new URL(text, window.location.href);
+                const wrapped = parsed.searchParams.get("goto");
+                return wrapped ? decodeURIComponent(wrapped) : text;
+            } catch {
+                const match = text.match(/[?&]goto=([^&#]+)/);
+                return match ? decodeURIComponent(match[1]) : text;
+            }
+        }
+
         function setStatus(message) {
             statusEl.textContent = message;
         }
@@ -694,7 +719,7 @@
             loader = document.createElement("iframe");
             loader.id = "game-loader";
             loader.title = "Loading";
-            loader.src = "loading.html";
+            loader.src = getStaticPageUrl("loading.html");
             loader.setAttribute("aria-hidden", "true");
             loader.style.cssText = [
                 "position:fixed",
@@ -1012,7 +1037,13 @@
         function openInResearch(url) {
             if (!url) return;
             showGameLoader();
-            window.location.href = `research.html?goto=${encodeURIComponent(url)}`;
+            const target = unwrapLaunchTarget(url);
+            const destination = `${getStaticPageUrl("research.html")}?goto=${encodeURIComponent(target)}`;
+            try {
+                window.parent.location.href = destination;
+            } catch {
+                window.location.href = destination;
+            }
         }
 
         async function ensureLuminReady() {
@@ -1025,8 +1056,9 @@
 
         async function playGame(game) {
             if (!game) return;
+            showGameLoader();
 
-            const directUrl = game.html_url || game.url;
+            const directUrl = game.html_url || game.url || game.link || game.src || game.href;
             if (directUrl) {
                 setStatus(`Opening ${game.name}...`);
                 openInResearch(directUrl);
@@ -1036,7 +1068,7 @@
             try {
                 setStatus(`Opening ${game.name}...`);
                 await ensureLuminReady();
-                const result = await Lumin.getGameUrl(game.id);
+                const result = await withTimeout(Lumin.getGameUrl(game.id), 20000, "Game link took too long to load.");
                 const url = result?.url || result;
                 if (!url) throw new Error("Lumin did not return a game URL.");
                 openInResearch(url);

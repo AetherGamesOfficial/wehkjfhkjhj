@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Loading</title>
-<link rel="icon" type="image/png" href="aether-favicon.png">
 <style>
 body {
     margin: 0;
@@ -184,8 +182,14 @@ const messages = [
     "introvents... UNITE"
 ];
 
-document.getElementById("message").textContent =
-    messages[Math.floor(Math.random() * messages.length)];
+const messageEl = document.getElementById("message");
+
+function showNextMessage() {
+    messageEl.textContent = messages[Math.floor(Math.random() * messages.length)];
+}
+
+showNextMessage();
+setInterval(showNextMessage, 2600);
 </script>
 
 </body>

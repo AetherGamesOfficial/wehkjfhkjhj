@@ -66,14 +66,9 @@
     const params = new URLSearchParams(hostLocationPart("search"));
     const preferredWisp = normalizeWisp(window.__AETHER_STATIC_WISP || params.get("wisp") || "wss://wisp.mercurywork.shop/");
     const backend = window.__AETHER_STATIC_BACKEND || params.get("backend") || "scramjet2";
-    const relayListUrl = "https://cdn.jsdelivr.net/gh/skidding-code/arctic-wisps@main/wisp.txt";
     const bundledWisps = [
       "wss://wisp.mercurywork.shop/",
-      "wss://arctic.lat/wisp/",
-      "wss://math.luminalos.com/cdn-cgi/p/",
-      "wss://math.sealiee.click/cdn-cgi/p/",
-      "wss://math.mathematicaloffice.com/cdn-cgi/p/",
-      "wss://math.luminal.click/cdn-cgi/p/"
+      "wss://arctic.lat/wisp/"
     ].map(normalizeWisp).filter(Boolean);
     const frame = document.getElementById("frame");
     const stage = document.getElementById("stage");
@@ -137,11 +132,7 @@
     async function loadRelays() {
       if (!relayPromise) {
         const baseRelays = [preferredWisp, ...bundledWisps].filter(Boolean);
-        relayPromise = fetch(relayListUrl, { cache: "no-store" })
-          .then(response => response.ok ? response.text() : "")
-          .then(text => parseRelayList(text))
-          .catch(() => [])
-          .then(relays => [...new Set([...baseRelays, ...relays])]);
+        relayPromise = Promise.resolve([...new Set(baseRelays)]);
       }
       return relayPromise;
     }

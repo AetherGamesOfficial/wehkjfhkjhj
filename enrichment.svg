@@ -689,6 +689,31 @@
             { id: &quot;freerice&quot;, name: &quot;FreeRice&quot;, category: &quot;Trivia&quot;, url: &quot;https://freerice.com/&quot; },
         ];
 
+        const staticCdnBase = &quot;https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/&quot;;
+
+        function getStaticPageUrl(page) {
+            let parentHref = &quot;&quot;;
+            try {
+                parentHref = window.parent &amp;&amp; window.parent !== window ? window.parent.location.href : &quot;&quot;;
+            } catch {}
+
+            const currentHref = [window.location.href, document.referrer, parentHref].join(&quot; &quot;);
+            const isStatic = currentHref.includes(&quot;/gh/AetherGamesOfficial/Aetherhtmlstatic@&quot;) || currentHref.includes(&quot;.svg&quot;);
+            return isStatic ? staticCdnBase + page.replace(/\.html$/, &quot;.svg&quot;) : page;
+        }
+
+        function unwrapLaunchTarget(value) {
+            const text = String(value || &quot;&quot;).trim();
+            try {
+                const parsed = new URL(text, window.location.href);
+                const wrapped = parsed.searchParams.get(&quot;goto&quot;);
+                return wrapped ? decodeURIComponent(wrapped) : text;
+            } catch {
+                const match = text.match(/[?&amp;]goto=([^&amp;#]+)/);
+                return match ? decodeURIComponent(match[1]) : text;
+            }
+        }
+
         function setStatus(message) {
             statusEl.textContent = message;
         }
@@ -703,7 +728,7 @@
             loader = document.createElement(&quot;iframe&quot;);
             loader.id = &quot;game-loader&quot;;
             loader.title = &quot;Loading&quot;;
-            loader.src = &quot;loading.html&quot;;
+            loader.src = getStaticPageUrl(&quot;loading.html&quot;);
             loader.setAttribute(&quot;aria-hidden&quot;, &quot;true&quot;);
             loader.style.cssText = [
                 &quot;position:fixed&quot;,
@@ -1021,7 +1046,13 @@
         function openInResearch(url) {
             if (!url) return;
             showGameLoader();
-            window.parent.location.href = `https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/research.svg?goto=${encodeURIComponent(url)}`;
+            const target = unwrapLaunchTarget(url);
+            const destination = `${getStaticPageUrl(&quot;research.html&quot;)}?goto=${encodeURIComponent(target)}`;
+            try {
+                window.parent.location.href = destination;
+            } catch {
+                window.location.href = destination;
+            }
         }
 
         async function ensureLuminReady() {
@@ -1034,8 +1065,9 @@
 
         async function playGame(game) {
             if (!game) return;
+            showGameLoader();
 
-            const directUrl = game.html_url || game.url;
+            const directUrl = game.html_url || game.url || game.link || game.src || game.href;
             if (directUrl) {
                 setStatus(`Opening ${game.name}...`);
                 openInResearch(directUrl);
@@ -1045,7 +1077,7 @@
             try {
                 setStatus(`Opening ${game.name}...`);
                 await ensureLuminReady();
-                const result = await Lumin.getGameUrl(game.id);
+                const result = await withTimeout(Lumin.getGameUrl(game.id), 20000, &quot;Game link took too long to load.&quot;);
                 const url = result?.url || result;
                 if (!url) throw new Error(&quot;Lumin did not return a game URL.&quot;);
                 openInResearch(url);
