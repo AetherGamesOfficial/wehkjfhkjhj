@@ -50,6 +50,12 @@
 
     function hostLocationPart(part) {
       try {
+        const injected = window.__AETHER_STATIC_SCRAMJET_HREF__;
+        if (typeof injected === "string" && injected) {
+          return new URL(injected, window.location.href)[part] || "";
+        }
+      } catch {}
+      try {
         if (window.parent && window.parent !== window && window.parent.location) {
           return window.parent.location[part] || "";
         }
