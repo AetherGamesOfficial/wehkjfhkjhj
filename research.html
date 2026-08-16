@@ -697,6 +697,7 @@ function initAetherResearch() {
 
     const toolTargetKey = "aether-tool-target";
     const staticCdnBase = "https://cdn.jsdelivr.net/gh/AetherGamesOfficial/Aetherhtmlstatic@main/";
+    const staticProxyVersion = "msv4lmvy";
     const arcticEmbedBase = staticCdnBase + "static-scramjet.svg";
     const arcticWisps = [
         "wss://wisp.mercurywork.shop/",
@@ -717,7 +718,7 @@ function initAetherResearch() {
     function getArcticUrl(target, baseIndex = 0) {
         const routeCount = arcticWisps.length;
         const routeIndex = baseIndex % routeCount;
-        const params = new URLSearchParams({ backend: "scramjet2", palette: "gnmath" });
+        const params = new URLSearchParams({ backend: "scramjet2", palette: "gnmath", sjv: staticProxyVersion });
         const wisp = arcticWisps[routeIndex];
         if (wisp) params.set("wisp", wisp);
         return arcticEmbedBase + "?" + params.toString() + "#" + encodeArcticTarget(target);

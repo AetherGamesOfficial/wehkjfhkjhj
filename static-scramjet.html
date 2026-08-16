@@ -45,8 +45,9 @@
       }
     })();
   </script>
-  <script type="module">
-    import { r as prepare, R as Runtime, d as decodeTarget } from "https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js";
+  <script>
+    (async () => {
+      const { r: prepare, R: Runtime, d: decodeTarget } = await import("https://cdn.jsdelivr.net/gh/sealiee11/arctic-static@main/assets/resolver-C09Pc7JC.js");
 
     function hostLocationPart(part) {
       try {
@@ -208,6 +209,18 @@
     });
 
     load();
+    })().catch((error) => {
+      const message = error && error.message ? error.message : "The connection did not finish.";
+      const frame = document.getElementById("frame");
+      const stage = document.getElementById("stage");
+      const errorBox = document.getElementById("error");
+      const errorText = document.getElementById("errorText");
+      if (frame) frame.style.display = "none";
+      if (stage) stage.style.display = "grid";
+      if (errorText) errorText.textContent = message;
+      if (errorBox) errorBox.style.display = "block";
+      if (window.parent !== window) window.parent.postMessage({ type: "arctic-embed", status: "error", detail: message }, "*");
+    });
   </script>
 </body>
 </html>
